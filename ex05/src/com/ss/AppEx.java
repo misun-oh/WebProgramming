@@ -43,6 +43,16 @@ public class AppEx {
 		// 변수의 이름을 불러주면 저장된 값이 출력된다
 		System.out.println(num1234 + ss);
 		
+		// 상수
+		// 상수 이름은 대문자로 작성하는것이 관례이다
+		final String STR_STR;
+		final int INT_INT;
+		STR_STR = "삼성캠퍼스";
+		// 상수는 값을 한번만 초기화 할 수 있다
+		// STR_STR = "삼성캠퍼스";
+		
+		
+		
 		
 	}
 

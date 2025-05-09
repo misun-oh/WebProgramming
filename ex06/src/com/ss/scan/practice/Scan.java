@@ -28,7 +28,17 @@ public class Scan {
 		double bmi = weight/(height_m*height_m);
 		System.out.println("당신의 BMI는 " + bmi + "입니다.");
 		
-		
+		// () : 조건문(비교문장) -> true, false
+		if(bmi<23) {
+			System.out.println("정상체중 입니다.");
+		// 조건이 여러개인 경우
+		} else if(bmi>23 && bmi<=25) {
+			System.out.println("체중관리가 필요합니다.");		
+		// 조건이 참이 아닌경우
+		} else {
+			System.out.println("bmi(" +bmi+ ")값을 확인 해주세요");
+			System.out.println("관리자에게 문의 하세요");
+		}
 		
 	}
 }

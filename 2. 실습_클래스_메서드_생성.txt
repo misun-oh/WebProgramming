@@ -29,3 +29,31 @@
 	메서드 : minus(int, int) : int
 
 =============================
+변수 선언 / 초기화
+
+프로젝트명 : ex05
+
+프로그램실행용클래스 - main
+패키지명: com.ss.var
+클래스명: App
+
+기능작성용클래스
+패키지명: com.ss.var.practice
+클래스명: Calc
+	메서드 : plus(int, int) : int
+	메서드 : minus(int, int) : int
+        메서드 : toStr(String) : void
+			매개변수로 받은 문자를 출력
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -11,5 +11,9 @@
 
 기능작성용클래스
 패키지명: com.ss.scan.practice
-클래스명: Sean
-	input():void
+클래스명: Scan
+	/**
+		사용자로부터 키와 몸무계를 입력 받아 콘솔창에 출력
+	**/
+	bmi():void
+	bmi_m():void

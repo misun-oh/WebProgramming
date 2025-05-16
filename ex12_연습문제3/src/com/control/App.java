@@ -18,6 +18,9 @@ public class App {
 		//cx.method1();
 		//cx.method3();
 		//cx.method4();
-		cx.method5();
+		//cx.method5();
+		//cx.method6();
+		//cx.method7();
+		cx.method8();
 	}
 }

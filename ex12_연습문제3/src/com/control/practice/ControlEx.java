@@ -137,13 +137,10 @@ public class ControlEx {
 
 	public void method5() {
 		/*
-		 * 아이디, 비밀번호를 정해두고 로그인 기능을 구현 
-		 * 로그인 성공시 "로그인 성공", 
-		 * 아이디가 불일치시 "아이디가 틀렸습니다.", 
-		 * 비밀번호가 불일치시 "비밀번호가 틀렸습니다."를 출력 
-		 * (id는 momo, 비밀번호는 1234입니다.)
+		 * 아이디, 비밀번호를 정해두고 로그인 기능을 구현 로그인 성공시 "로그인 성공", 아이디가 불일치시 "아이디가 틀렸습니다.", 비밀번호가
+		 * 불일치시 "비밀번호가 틀렸습니다."를 출력 (id는 momo, 비밀번호는 1234입니다.)
 		 */
-		
+
 		// ==
 		// 문자열의 비교(p91)
 		String str = "사과";
@@ -153,29 +150,167 @@ public class ControlEx {
 		if (str.equals("사과")) {
 
 		}
-		
-		
-		while(true) {
+
+		// 무한반복
+		while (true) {
 			System.out.println("id : ");
 			String id = scanner.next();
+
+			// 사용자가 입력한 ID가 exit라면 반복문을 탈출 하는 코드를 작성해봅시다
+			if ("exit".equalsIgnoreCase(id)) {
+				// 반복문 탈출
+				break;
+			}
 			System.out.println("pw : ");
 			String pw = scanner.next();
-			
-			int pw2 = scanner.nextInt();
-			scanner.nextLine();
-			
-			// null 
-			//if(id.equals("momo")) {
-			if("momo".equals(id) && "1234".equals(pw)) {
+
+			// null
+			// if(id.equals("momo")) {
+			if ("momo".equals(id) && "1234".equals(pw)) {
 				System.out.println("로그인 성공");
-			} else if(!"momo".equals(id)) {
+			} else if (!"momo".equals(id)) {
 				System.out.println("아이디가 틀렸습니다.");
-			} else if(!"1234".equals(pw)) {
+			} else if (!"1234".equals(pw)) {
 				System.out.println("pw가 틀렸습니다.");
 			}
+
 		}
+
+	}
+
+	public void method6() {
+		/*
+		 * 사용자에게 관리자, 회원, 비회원중 하나를 입력받아 각 등급이 행할수 있는 권한을 출력 관리자 : 회원관리, 게시글관리,
+		 * 게시글작성,게시글조회, 댓글작성 회원 : 게시글작성, 게시글조회, 댓글작성 비회원 : 게시글 조회 (단, 잘못 입력 하였을 경우
+		 * "잘못입력했습니다."라는 출력문이 출력)
+		 */
+
+		// 1. 반복문을 사용해서 계속 실행 되도록 해볼까요 - while
+		// 2. 관리자, 회원, 비회원이 아닌경우 반복문을 탈출 해볼까요 - break
+		// 3. 무한반복 -> 10번 반복 -> for
+		int i = 0;
+		while (true) {
+			// i를 0으로 초기화 하고 i가 10보다 작을때까지 1씩 증가하면서 코드블럭을 반복적으로 실행
+			// for(int i=0;i<10;i++) {
+			System.out.println("등급 : ");
+			String type = scanner.next();
+			// null. 오류가 발생
+
+			if (type.equals("관리자")) {
+				System.out.println("회원관리, 게시글관리, 게시글작성,게시글조회, 댓글작성 ");
+			} else if ("회원".equals(type)) {
+				System.out.println("게시글작성, 게시글조회, 댓글작성  ");
+			} else if ("비회원".equals(type)) {
+				System.out.println("게시글 조회 ");
+			} else {
+				System.out.println("잘못입력했습니다 ");
+				break;
+			}
+			if (i > 10)
+				break;
+			i++;
+
+		}
+
+	}
+
+	public void method7() {
+
+		// 반복
+		// 계속 하시겠습니까?(Y)
+		// Y,y를 입력 받으면 반복 아니면 종료
+		while (true) {
+
+			/*
+			 * 키, 몸무게를 double로입력받고BMI지수를계산하여계산결과에따라 저체중/ 정상체중/ 과체중/ 비만을출력하세요. BMI =
+			 * 몸무게/(키(m) * 키(m)) BMI가18.5미만일경우저체중/ 18.5이상23미만일경우정상체중 BMI가23이상25미만일경우과체중/
+			 * 25이상30미만일경우비만 BMI가30이상일경우고도비만
+			 */
+			// 1. 키, 몸무계 입력 받기
+			double height;
+			while(true) {
+				System.out.println("키(m) : ");
+				height = scanner.nextDouble();
+				// 키 10보다 작은 값을 입력 할때까지 
+				if(height>10) {
+					// 다시 입력
+					System.out.println("키는 m 단위로 입력 해주세요");
+				} else {
+					break;
+				}
+			}
+			
+			
+			
+			System.out.println("몸무계(kg) : ");
+			double weight = scanner.nextDouble();
+
+			double bmi = weight / (height * height);
+			System.out.printf("당신의 bmi는 %s 입니다.", bmi);
+
+			if (bmi < 18.5) {
+				System.out.println("저체중");
+			} else if (bmi < 23) {
+				System.out.println("정상체중");
+			} else if (bmi < 25) {
+				System.out.println("과체중");
+			} else if (bmi < 30) {
+				System.out.println("비만");
+			} else {
+				System.out.println("고도비만");
+			}
+
+			System.out.println("계속 하시겠습니까?");
+			String input = scanner.next();
+			if (!"y".equalsIgnoreCase(input)) {
+				System.out.println("종료 합니다.");
+				break;
+			}
+		}
+
+	}
+
+	/*
+	 * method8() : void 메뉴화면을 구현
+	 * 
+	 * 실행할기능을선택하세요. 
+	 * 1. 메뉴출력 
+	 * 2. 짝수/홀수 
+	 * 3. 합격/불합격 
+	 * 4. 합격/불합격 switch 
+	 * 5. 로그인 
+	 * 6. 권한 확인 
+	 * 7. BMI
+	 */
+	public void method8() {
 		
-		
+		// i = 0,1,2,3,4
+		for(int i=0;i<5;i++) {
+			
+			// 5번 반복
+			System.out.println("1. 메뉴출력            ");
+			System.out.println("2. 짝수/홀수           ");
+			System.out.println("3. 합격/불합격          ");
+			System.out.println("4. 합격/불합격 switch   ");
+			System.out.println("5. 로그인             ");
+			System.out.println("6. 권한 확인           ");
+			System.out.println("7. BMI             ");
+			System.out.println("메뉴 번호 : ");
+			int menu = scanner.nextInt();
+			
+			switch (menu) {
+			// menu의 값이 1이면
+			case 1:	method1(); break;
+			// menu의 값이 2이면
+			case 2: method2(); break;
+			case 3: method3(); break;
+			case 4: method4(); break;
+			case 5: method5(); break;
+			case 6: method6(); break;
+			case 7: method7(); break;
+			default: System.out.println("메뉴 번호를 확인 하세요!");
+			}
+		}
 		
 		
 	}

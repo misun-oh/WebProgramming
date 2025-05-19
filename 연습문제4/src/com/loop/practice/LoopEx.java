@@ -166,38 +166,38 @@ public class LoopEx {
 	}
 
 	/*
-	 * 사용자로부터 두개의 값을 입력 받아 그 사이의 숫자를 모두 출력 하세요. 
-	 * 만일 1미만의 숫자가 입력 됐다면 "1이상의 숫자만 입력해주세요"를 출력하세요.
+	 * 사용자로부터 두개의 값을 입력 받아 그 사이의 숫자를 모두 출력 하세요. 만일 1미만의 숫자가 입력 됐다면
+	 * "1이상의 숫자만 입력해주세요"를 출력하세요.
 	 */
 	// 자리 바꾸기
 	public void method6_1() {
-		
+
 		int num1, num2, temp;
-		
-		while(true) {
+
+		while (true) {
 			System.out.println("정수1 : ");
 			num1 = scanner.nextInt();
 			System.out.println("정수2 : ");
 			num2 = scanner.nextInt();
-			
-			if(num1 >= 1 && num2 >= 1) {
-				if(num1 > num2) {
+
+			if (num1 >= 1 && num2 >= 1) {
+				if (num1 > num2) {
 					temp = num1;
 					num1 = num2;
 					num2 = temp;
 				}
-				
-				for (int i=num1;i<= num2;i++) {
+
+				for (int i = num1; i <= num2; i++) {
 					System.out.print(i + " ");
-				}	
+				}
 				break;
 			} else {
 				System.out.println("1 이상의 숫자만 입력 가능 합니다.");
 			}
-			
+
 		}
 	}
-	
+
 	// 메서드 이용하기
 	public void method6_2() {
 		int num1, num2, min, max;
@@ -206,53 +206,74 @@ public class LoopEx {
 			num1 = scanner.nextInt();
 			System.out.println("정수2 : ");
 			num2 = scanner.nextInt();
-			
-			if(num1 < 1 || num2 < 1) {
+
+			if (num1 < 1 || num2 < 1) {
 				System.out.println("1 이상의 숫자만 입력 가능 합니다.");
 			} else {
 				min = Math.min(num1, num2);
 				max = Math.max(num1, num2);
-				
-				for(int i=min;i<=max;i++) {
+
+				for (int i = min; i <= max; i++) {
 					System.out.print(i + " ");
 				}
 				break;
 			}
 		}
-		
+
 	}
-	
+
 	public void method8() {
-		while(true) {
+		while (true) {
 			System.out.println("정수(1~9) : ");
 			int num = scanner.nextInt();
-			
-			if(num >=1 && num <=9) {
-				
+
+			if (num >= 1 && num <= 9) {
+
 				// j는 num부터 9보다 작거나 같을때까지 1씩 증가시키면서 반복해서 출력
-				for(int j=num;j<=9;j++) {
+				for (int j = num; j <= 9; j++) {
 					System.out.println("======== " + j + "단 =========");
 					// 1 ~ 9
-					for(int i = 1;i <= 9; i++) {
-						System.out.printf("%d * %d = %d\n", j, i, j*i);
-					}					
+					for (int i = 1; i <= 9; i++) {
+						System.out.printf("%d * %d = %d\n", j, i, j * i);
+					}
 				}
 				break;
 			} else {
 				System.out.println("1 ~ 9까지 정수 중 하나의 숫자를 입력 해야 합니다.");
-			}			
+			}
 		}
 	}
+
+	/*
+	 * 사용자로 부터 시작 숫자와 공차를 입력 받아 일정한 값으로 숫자가 커지거나 작아지는 
+	 * 프로그램을 구현 하세요. 
+	 * 단, 출력 되는 숫자는 총10개 입니다. 
+	 * ‘공차’는 숫자들 사이에서 일정한 숫자의 차가 존재 하는것을 말한다.
+	 */
+	public void method11() {
+		System.out.println("시작 숫자 : ");
+		int start = scanner.nextInt();
+		System.out.println("공차 : ");
+		int commonDifference = scanner.nextInt();
+		
+		// 초기값; 조건식; 증감식
+		// i = 0 ~ 9 10번 실행 됩니다
+		// 1, 0
+		for(int i=0;i<10;i++) {
+			// i값이 0부터 9까지 1씩 증가 하면서 10번 반복
+			// start += commonDifference;
+			System.out.print(start + " ");
+			
+			start = start + commonDifference;
+			//System.out.print(start + " ");
+			
+		}
+		
+	}
+	
+	
+	
+	
+	
 	
 }
-
-
-
-
-
-
-
-
-
-
-

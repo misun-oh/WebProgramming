@@ -141,6 +141,34 @@ public class A_array {
 		
 		// 반복문을 이용해서 1-10까지의 임의의 수를 추출하고 배열에 저장
 	}
+	
+	public int[] method7() {
+		// 정수타입의 길이가 5인 배열을 선언
+		int intArr[] = new int[5];
+		
+		for(int i=0;i<intArr.length;i++) {
+			// 1부터 47까지의 정수중 임의의 수를 뽑아 배열에 순서대로 저장
+			int num = (int)(Math.random()*47) + 1;
+			intArr[i] = num;
+			// 중복을 제거
+			for(int j=0;j<i;j++) {
+				System.out.println(j+"번방의 값과 비교 진행");				
+				System.out.printf("num : %d, intArr[j] : %d\n", num, intArr[j]);
+				if(intArr[j] == num) {
+					System.out.println("중복발생");
+					i--;
+					break;
+				}
+			}
+		}
+//		System.out.println("로또번호 : ");
+//		for(int num:intArr) {
+//			System.out.print(num + " ");
+//		}
+		return intArr;
+		
+		// 반복문을 이용해서 1-10까지의 임의의 수를 추출하고 배열에 저장
+	}
 }
 
 

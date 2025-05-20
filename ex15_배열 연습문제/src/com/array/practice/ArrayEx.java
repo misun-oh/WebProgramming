@@ -26,7 +26,6 @@ public class ArrayEx {
 		for (int num : intArr) {
 			System.out.print(num + " ");
 		}
-
 	}
 
 	/*

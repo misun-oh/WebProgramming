@@ -59,7 +59,7 @@ public class B_arrayCopy {
 		int origin[] = {1,2,3,4,5};
 		int copy[] = new int[10];
 		// System.arraycopy(원본 배열이름, 복사 시작 인덱스, 복사본 배열명, 복사본 배열의 복사 시작 위치, 복사할 길이);
-		System.arraycopy(origin, 0, copy, 3, origin.length);
+		System.arraycopy(origin, 1, copy, 3, origin.length-1);
 		
 		System.out.println("copy : " + Arrays.toString(copy));
 		
@@ -92,5 +92,7 @@ public class B_arrayCopy {
 		System.out.println("origin.hashCode() : " + origin.hashCode());
 		System.out.println("copy.hashCode() : " + copy.hashCode());
 	}
+	
+	
 	
 }

@@ -75,10 +75,82 @@ public class ArrayEx1 {
 	}
 
 	/*
-	 * 10개의 값을 저장할 수 있는 정수형 배열을 선언 및 할당하고 1~10 사이의 무작위수를 발생 시켜 배열에 초기화 한후 출력하세요.
+	 * 10개의 값을 저장할 수 있는 정수형 배열을 선언 및 할당하고 
+	 * 1~10 사이의 무작위수를 발생 시켜 배열에 초기화 한후 출력하세요.
 	 */
-	private void method7() {
-		// TODO Auto-generated method stub
-
+	public void method7() {
+		int intArr[] = new int[10];
+		for(int i=0;i<intArr.length;i++) {
+			int num = (int)(Math.random()*10)+1;
+			intArr[i] = num;
+		}
+		System.out.println(Arrays.toString(intArr));
+		System.out.println("====================");
+		for(int num:intArr) {
+			System.out.print(num + " ");
+		}
+		int min = 10;
+		int max = 0;
+		// 최대값, 최소값 구하기
+		for(int num:intArr) {
+			// 최대값
+			if(num > max) 
+				max = num;
+			
+			// 최소값
+			if(min > num) min = num;
+			
+		}
+		System.out.println();
+		System.out.println("반복문을 이용한 최대값 최소값 구하기");
+		System.out.println("최대값 : " + max);
+		System.out.println("최소값 : " + min);
+		// 정렬후 배열을 직접 바꿔줍니다.
+		System.out.println("Arrays.sort 메서드를 이용한 최대값 최소값 구하기");
+		Arrays.sort(intArr);
+		System.out.println("정렬후 : " + Arrays.toString(intArr));
+		System.out.println("최대값 : " + intArr[intArr.length-1]);
+		System.out.println("최소값 : " + intArr[0]);
 	}
+	
+	public void method9() {
+		int intArr[] = new int[10];
+		for(int i=0;i<intArr.length;i++) {
+			System.out.println("정수(1~10) : ");
+			int num = s.nextInt();
+			intArr[i] = num;
+			for(int j=0;j<i;j++) {
+				// 중복 발생시 i의 값을 감소 이전 단계로 돌아감
+				if(intArr[j] == num) {
+					System.out.println("중복 발생 : " + num);
+					i--;
+				}
+			}
+		}
+		System.out.println(Arrays.toString(intArr));
+	}
+	
+	public int[][] method10() {
+		System.out.println("구매 갯수 : ");
+		int count = s.nextInt();
+		int[][] lottos = new int[count][];
+		for(int c=0;c<count;c++) {
+			int[] lotto = new int[6];
+			for(int i=0;i<lotto.length;i++) {
+				int num = (int)(Math.random()*45)+1;
+				lotto[i] = num;
+				for(int j=0;j<i;j++) {
+					if(lotto[j] == num) {
+						System.out.println("중복 발생 : " + num);
+						i--;
+					}
+				}
+			}
+			lottos[c] = lotto;
+			
+		}
+		return lottos;
+	}
+	
+	
 }

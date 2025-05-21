@@ -1,24 +1,31 @@
 package com.array.practice;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 public class C_ArraySort {
-	public static void main(String[] args) {
-		int intArr[] = null;
-		intArr = new int[]{3,6,2,1};
-		for(int i=0;i<intArr.length;i++) {
-			for(int j=i;j<intArr.length;j++) {
-				if(intArr[0] > intArr[1]) {
-					// 방바꾸기
-				}
-			}
+	public void method1() {
+		int arr[] = {3,2,5,1,7};
+		for(int num:arr) {
+			System.out.print(num + " ");
 		}
-		/*
-		Arrays.sort(intArr);
-		System.out.println(Arrays.toString(intArr));
-		Arrays.sort(intArr);
+		System.out.println();
 		
-		String str = Arrays.toString(intArr);
-		System.out.println( str.substring(1,str.length()-1) );
-		*/
+		// 오름차순 정렬
+		Arrays.sort(arr);
 		
+		for(int num:arr) {
+			System.out.print(num + " ");
+		}
+		System.out.println("최소값 : " + arr[0]);
+		System.out.println("최대값 : " + arr[arr.length-1]);
+		
+		// 내림차순 정렬
+		Integer IntegerArr[] = {3,2,5,1,7};
+		Arrays.sort(IntegerArr, Collections.reverseOrder());
+		
+		for(int num:IntegerArr) {
+			System.out.print(num + " ");
+		}
 	}
 }

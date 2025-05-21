@@ -2,7 +2,7 @@ package com.array.practice;
 
 import java.util.Arrays;
 
-public class B_arrayCopy {
+public class B_ArrayCopy {
 	/*
 	 * 배열의 복사
 	 *  - 얖은 복사 : 배열의 주소만 복사

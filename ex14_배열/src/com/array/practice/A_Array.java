@@ -1,6 +1,6 @@
 package com.array.practice;
 
-public class A_array {
+public class A_Array {
 	public void method1() {
 		int num1 = 10;
 		int num2 = 5;

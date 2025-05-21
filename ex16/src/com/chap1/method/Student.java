@@ -62,7 +62,7 @@ public class Student {
 					+ "\n학번 : " + id
 					+ "\n주소 : " + address
 					+ "\n성별 : " + gender
-					+ "==========";
+					+ "\n==========";
 		
 		return msg;
 	}

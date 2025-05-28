@@ -1,5 +1,7 @@
 package com.object.practice;
 
+import java.util.Arrays;
+
 public class StaticSample {
 	private static String value;
 
@@ -10,8 +12,15 @@ public class StaticSample {
 //		value.toLowerCase();
 	}
 	
+	// 전달받은 인덱스 위치의 value 값을 전달받은 문자로 변경하는 static 메소드
 	public static void setChar(int index, char c) {
-		
+		// 문자열을 => char[]로 반환
+		char[] cc = value.toCharArray();
+		System.out.println(Arrays.toString(cc));
+		cc[index] = c;
+		System.out.println(Arrays.toString(cc));
+		value = String.valueOf(cc);
+		// char[] => 문자열
 	}
 	
 	public static int valueLength() {

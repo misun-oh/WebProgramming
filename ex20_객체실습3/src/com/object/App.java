@@ -22,6 +22,10 @@ public class App {
 		System.out.println(StaticSample.valueConcat("PRPGRAMMING"));
 		
 		System.out.println("value : " + StaticSample.getValue());
+		
+		StaticSample.setChar(0, 'C');
+		
+		System.out.println("value : " + StaticSample.getValue());
 
 	}
 

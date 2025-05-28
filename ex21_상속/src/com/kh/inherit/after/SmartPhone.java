@@ -56,6 +56,7 @@ public class SmartPhone extends Product{
 	 */
 	@Override
 	public boolean equals(Object obj) {
+		System.out.println("override");
 		// 통신사, 상품명
 		// 부모타입으로 자동 형변환(모든 클래스는 Object 로 자동 형변환이 가능 하다)
 		// 자식타입으로는 명시적 형변환
@@ -74,6 +75,8 @@ public class SmartPhone extends Product{
 	
 	
 	public boolean equals(SmartPhone sh) {
+		System.out.println("SmartPhone");
+
 		// 통신사, 상품명
 		if(sh.mobileAgency == mobileAgency
 				&& sh.getName() == getName() ) {

@@ -3,6 +3,8 @@ package com.kh.inherit.after;
 // 프로그램에서는 자식이 부모를 선택한다
 public class Desktop extends Product{
 	
+	private boolean allInOne; // 일체 여부
+	
 	/*
 	 * 부모 필드를 초기화 할 수 있는 방법
 	 * 1. super.를 통해서 부모의 필드에 직접 접근
@@ -33,14 +35,43 @@ public class Desktop extends Product{
 		// 부모의 생성자를 호출해서 필드를 세팅
 		super(brand, pCode, name, price);
 		System.out.println("Desktop(자식 매개변수 있는 생성자) 호출");
-
+		this.allInOne = false;
 		// 필드에 접근할때 중요한 요소는 접근제한자 이다!!
 		//super.brand="";
 		//this.brand="";
 	}
 	
-	public void test() {
-		// TODO Auto-generated method stub
+	public Desktop(String brand, String pCode, String name, int price, boolean allInOne) {
 
+		// 부모의 기본생성자를 호출
+		// 부모의 생성자를 호출 하지 않으면 컴파일러에 의해 부모의 기본생성자가 실행
+		//super(); 
+		// 부모의 생성자를 호출해서 필드를 세팅
+		super(brand, pCode, name, price);
+		System.out.println("Desktop(자식 매개변수 있는 생성자) 호출");
+		this.allInOne = allInOne;
+		// 필드에 접근할때 중요한 요소는 접근제한자 이다!!
+		//super.brand="";
+		//this.brand="";
+	}
+	
+	public boolean isAllInOne() {
+		return allInOne;
+	}
+	public void setAllInOne(boolean allInOne) {
+		this.allInOne = allInOne;
+	}
+	
+	
+	@Override
+	public String information() {
+		// TODO Auto-generated method stub
+		return super.information() + ","+ this.allInOne;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
 	}
 }

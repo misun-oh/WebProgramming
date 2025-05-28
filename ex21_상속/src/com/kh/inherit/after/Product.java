@@ -30,7 +30,7 @@ public class Product {
 	 * 필드의 정보를 하나의 문자열로 반환
 	 */
 	public String information() { 
-		return this.brand + ", " + this.name + ", " + this.pCode + ", " + this.price;
+		return "brand : " + this.brand + ", " + this.name + ", " + this.pCode + ", " + this.price;
 		//return null;
 	}
 	

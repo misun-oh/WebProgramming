@@ -4,13 +4,15 @@ package com.kh.inherit.after;
 // 세개의 클래스에 공통으로 들어있는 요소를 추출하여 부모클래스를 만들어 봅시다
 public class Product {
 	
-	private String brand; // 브랜드
+	// protected(#) 접근제한자
+	protected String brand; // 브랜드
 	private String pCode; // 상품코드
 	private String name; // 상품명
 	private int price; // 가격
 	
-	public Product() {
-	}
+//	public Product() {
+//		System.out.println("Product(부모 클래스) 기본 생성자");
+//	}
 	
 	public Product(String brand, String pCode, String name, int price) {
 		// 기본생성자를 호출

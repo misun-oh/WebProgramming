@@ -2,8 +2,8 @@ package com.kh.inherit.after;
 
 // 프로그램에서는 자식이 부모를 선택한다
 public class Desktop extends Product{
-	public Desktop() {
-	}
+//	public Desktop() {
+//	}
 
 	/*
 	 * 부모 필드를 초기화 할 수 있는 방법
@@ -20,9 +20,19 @@ public class Desktop extends Product{
 	 * 		- super([매개값, ...])을 통해서 자식의 생성자에서 부모의 생성자를 호출
 	 */
 	public Desktop(String brand, String pCode, String name, int price) {
+		// 부모의 기본생성자를 호출
+		// 부모의 생성자를 호출 하지 않으면 컴파일러에 의해 부모의 기본생성자가 실행
+		//super(); 
 		// 부모의 생성자를 호출해서 필드를 세팅
 		super(brand, pCode, name, price);
+
+		// 필드에 접근할때 중요한 요소는 접근제한자 이다!!
+		super.brand="";
+		this.brand="";
 	}
 	
-	
+	public void test() {
+		// TODO Auto-generated method stub
+
+	}
 }

@@ -1,4 +1,4 @@
-package com.kh.inherit.after;
+package com.inherit.after;
 
 public class SmartPhone extends Product{
 

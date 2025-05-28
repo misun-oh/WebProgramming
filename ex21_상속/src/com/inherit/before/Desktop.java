@@ -1,6 +1,6 @@
-package com.kh.inherit.before;
+package com.inherit.before;
 
-public class Tv {
+public class Desktop {
 	private String brand; // 브랜드
 	
 	private String pCode; // 상품코드
@@ -9,19 +9,19 @@ public class Tv {
 	
 	private int price; // 가격
 	
-	private int inch; // 인치
+	private boolean allInOne; // 일체 여부
 	
-	public Tv() {
+	public Desktop() {
 	}
 
-	public Tv(String brand, String pCode, String name, int price, int inch) {
+	public Desktop(String brand, String pCode, String name, int price, boolean allInOne) {
 		this.brand = brand;
 		this.pCode = pCode;
 		this.name = name;
 		this.price = price;
-		this.inch = inch;
+		this.allInOne = allInOne;
 	}
-
+	
 	public String getBrand() {
 		return brand;
 	}
@@ -54,15 +54,15 @@ public class Tv {
 		this.price = price;
 	}
 
-	public int getInch() {
-		return inch;
+	public boolean isAllInOne() {
+		return allInOne;
 	}
 
-	public void setInch(int inch) {
-		this.inch = inch;
+	public void setAllInOne(boolean allInOne) {
+		this.allInOne = allInOne;
 	}
 	
 	public String information() {
-		return this.brand + ", " + this.name + ", " + this.pCode + ", " + this.price + ", " + this.inch;
+		return this.brand + ", " + this.name + ", " + this.pCode + ", " + this.price + ", " + this.allInOne;
 	}
 }

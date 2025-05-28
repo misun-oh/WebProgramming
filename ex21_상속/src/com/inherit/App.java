@@ -1,9 +1,9 @@
-package com.kh.inherit;
+package com.inherit;
 
-import com.kh.inherit.after.Desktop;
-import com.kh.inherit.after.Product;
-import com.kh.inherit.after.SmartPhone;
-import com.kh.inherit.after.Tv;
+import com.inherit.after.Desktop;
+import com.inherit.after.Product;
+import com.inherit.after.SmartPhone;
+import com.inherit.after.Tv;
 
 public class App {
 

@@ -1,4 +1,4 @@
-package com.kh.inherit.after;
+package com._interface.practice;
 
 public class Tv extends Product{
 	private int inch; // 인치

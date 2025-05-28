@@ -1,6 +1,6 @@
-package com.kh.inherit;
+package com.inherit;
 
-import com.kh.inherit.after.SmartPhone;
+import com.inherit.after.SmartPhone;
 
 public class SmartphoneApp {
 

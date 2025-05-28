@@ -1,4 +1,4 @@
-package com.kh.inherit.before;
+package com.inherit.before;
 
 public class SmartPhone {
 	private String brand; // 브랜드

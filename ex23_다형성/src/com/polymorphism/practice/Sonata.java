@@ -1,4 +1,4 @@
-package com.polymorphism;
+package com.polymorphism.practice;
 
 public class Sonata extends Car {
 	public int price = 100000;

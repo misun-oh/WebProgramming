@@ -1,4 +1,4 @@
-package com.polymorphism;
+package com.polymorphism.practice;
 
 public class Spark extends Car {
 	@Override

@@ -1,5 +1,12 @@
 package com.polymorphism;
 
+import com.polymorphism.practice.Avante;
+import com.polymorphism.practice.Car;
+import com.polymorphism.practice.Grandure;
+import com.polymorphism.practice.Morning;
+import com.polymorphism.practice.Sonata;
+import com.polymorphism.practice.Spark;
+
 /*
  * 다형성
  *   - 부모 타입으로부터 파생된 여러 가지 자식 객체를 부모 클래스의 참조변수로 다룰 수 있는 기술이다.
@@ -18,6 +25,8 @@ package com.polymorphism;
 public class App {
 	
 	public static void main(String[] args) {
+		
+		
 		Car[] carArr = new Car[5]; 
 		carArr[0] = new Sonata();
 		carArr[1] = new Avante();

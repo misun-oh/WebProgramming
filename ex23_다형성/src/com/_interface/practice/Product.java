@@ -1,4 +1,4 @@
-package com.kh.inherit.after;
+package com._interface.practice;
 
 // 부모클래스
 // 세개의 클래스에 공통으로 들어있는 요소를 추출하여 부모클래스를 만들어 봅시다

@@ -11,6 +11,7 @@ import com.polymorphism.practice.Spark;
  * 다형성
  *   - 부모 타입으로부터 파생된 여러 가지 자식 객체를 부모 클래스의 참조변수로 다룰 수 있는 기술이다.
  *   - 즉, 부모 클래스의 참조변수로 다양한 자식 객체를 가질 수 있다.
+ *   - 상속과 인터페이스를 통해서 다형성을 구현 할 수 있다
  *   
  * UpCasing
  *  - 자식 타입 -> 부모 타입으로 형변환이 가능하다.
@@ -25,7 +26,12 @@ import com.polymorphism.practice.Spark;
 public class App {
 	
 	public static void main(String[] args) {
+		// 추상 클래스로 선언 하면 더이상 생성 할 수 없다!
+		// Car car = new Car();
 		
+		// 타입으로 사용 할수 있다!
+		// 추상 클래스로 객체를 생성할 수 없지만 참조형 변수의 타입으로는 사용 가능하다.
+		Car car = new Avante();
 		
 		Car[] carArr = new Car[5]; 
 		carArr[0] = new Sonata();

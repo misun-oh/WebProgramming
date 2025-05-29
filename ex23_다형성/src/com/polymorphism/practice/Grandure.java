@@ -5,4 +5,10 @@ public class Grandure extends Car {
 	public String toString() {
 		return "Grandure";
 	}
+
+	@Override
+	public void drive() {
+		// TODO Auto-generated method stub
+		
+	}
 }

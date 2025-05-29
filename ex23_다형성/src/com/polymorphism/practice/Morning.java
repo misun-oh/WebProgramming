@@ -5,4 +5,10 @@ public class Morning extends Car {
 	public String toString() {
 		return "Morning";
 	}
+
+	@Override
+	public void drive() {
+		// TODO Auto-generated method stub
+		
+	}
 }

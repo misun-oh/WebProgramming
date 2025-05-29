@@ -1,7 +1,7 @@
 package com._interface.practice;
 
 // 프로그램에서는 자식이 부모를 선택한다
-public class Desktop extends Product{
+public class Desktop extends Product {
 	
 	private boolean allInOne; // 일체 여부
 	

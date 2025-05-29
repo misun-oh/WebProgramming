@@ -12,4 +12,9 @@ public class Sonata extends Car {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	@Override
+	public void drive() {
+		// TODO Auto-generated method stub
+		
+	}
 }

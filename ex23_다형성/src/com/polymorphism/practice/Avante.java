@@ -6,4 +6,11 @@ public class Avante extends Car {
 		// TODO Auto-generated method stub
 		return "Avante";
 	}
+
+	@Override
+	public void drive() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

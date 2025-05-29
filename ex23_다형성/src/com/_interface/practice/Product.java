@@ -2,7 +2,7 @@ package com._interface.practice;
 
 // 부모클래스
 // 세개의 클래스에 공통으로 들어있는 요소를 추출하여 부모클래스를 만들어 봅시다
-public class Product {
+public class Product implements Remote{
 	
 	// protected(#) 접근제한자
 	protected String brand; // 브랜드
@@ -58,5 +58,19 @@ public class Product {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+
+	@Override
+	public void turnOn() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void turnOff() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	
 }

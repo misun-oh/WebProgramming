@@ -1,4 +1,4 @@
-package com.ss.var.practice;
+package com.var.practice;
 
 public class Calc {
 

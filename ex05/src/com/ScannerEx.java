@@ -1,4 +1,4 @@
-package com.ss;
+package com;
 
 import java.util.Scanner;
 

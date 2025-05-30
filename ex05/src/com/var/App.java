@@ -1,6 +1,6 @@
-package com.ss.var;
+package com.var;
 
-import com.ss.var.practice.Calc;
+import com.var.practice.Calc;
 
 public class App {
 	

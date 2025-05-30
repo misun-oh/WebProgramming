@@ -1,4 +1,4 @@
-package com.ss.scan.practice;
+package com.scan.practice;
 
 import java.util.Scanner;
 

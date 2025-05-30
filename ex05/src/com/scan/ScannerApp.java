@@ -1,6 +1,6 @@
-package com.ss.scan;
+package com.scan;
 
-import com.ss.scan.practice.ScanEx;
+import com.scan.practice.ScanEx;
 
 public class ScannerApp {
 	public static void main(String[] args) {

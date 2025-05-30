@@ -1,4 +1,4 @@
-package com.ss;
+package com;
 
 public class AppEx {
 	// 전역변수

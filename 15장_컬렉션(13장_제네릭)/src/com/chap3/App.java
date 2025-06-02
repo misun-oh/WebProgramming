@@ -6,6 +6,7 @@ public class App {
 	public static void main(String[] args) {
 		A_HashMap a = new A_HashMap();
 		//a.method1();
-		a.method2();
+		//a.method2();
+		a.method3();
 	}
 }

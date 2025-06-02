@@ -67,6 +67,7 @@ public class A_ArrayList {
 		list.add(new Member("뽀로로"));
 		list.set(0, new Member("크롱"));
 		list.add(new Member("루피"));
+		
 		// 인덱스를 이용한 삭제
 		// 0번째 요소를 반환 = Member
 		Member clon = list.remove(0);

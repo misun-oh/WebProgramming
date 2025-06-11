@@ -26,7 +26,12 @@ public class ConnectionTest {
 			Statement stmt = con.createStatement();
 			// 쿼리를 실행 하고 결과를 받아 온다
 			// ; 세미콜론은 제거 합니다. <-- ERR
-			ResultSet rs = stmt.executeQuery("SELECT * FROM EMP");
+			String name = "오미' or '1'='1";
+			String id = "200";
+			// 사용자의 입력 값에 의해서 동적으로 변경되는 쿼리가 생성
+			String sql = "SELECT * FROM EMP WHERE EMP_NAME='"+name+"' AND EMP_ID='"+id+"' ";
+			System.out.println(sql);
+			ResultSet rs = stmt.executeQuery(sql);
 			
 			while(rs.next()) {
 				int emp_id = rs.getInt(1);

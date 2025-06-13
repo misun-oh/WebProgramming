@@ -8,7 +8,7 @@ public class ConfigTest {
 	public static void main(String[] args) {
 		Properties prop = new Properties();
 
-        try (FileInputStream fis = new FileInputStream("config.properties")) {
+        try (FileInputStream fis = new FileInputStream("config/config.properties")) {
             prop.load(fis);
 
             String url = prop.getProperty("db.url");

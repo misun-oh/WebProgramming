@@ -7,28 +7,39 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import com.util.ConnectionUtil;
-import com.util.ScannerUtil;
 import com.vo.MemberVO;
 
-public class AllInOne {
+public class AllInOne_백업 {
+	
+	Scanner s = new Scanner(System.in);
 	
 	/**
 	 * 인증(Authentication)
 	 * 사용자로 부터 ID, PW를 입력 받아서 사용자가 있는지 확인하는 작업
 	 */
 	public MemberVO login() {
-		MemberVO loginMember = null;		
-		System.out.println("로그인");
+		MemberVO loginMember = null;
 		
 		// 사용자로부터 id, pw를 입력 받아서 변수에 저장
-		String id = ScannerUtil.getString("id : ");
-		String pw = ScannerUtil.getString("pw : ");
-	
+		System.out.println("로그인");
+		System.out.print("id : ");
+		String id = s.next();
+		System.out.print("pw : ");
+		String pw = s.next();
+		System.out.println("id : " + id + ", pw : " + pw);
+
+		// 인증(Authentication)
+		// DB에 사용자가 ID, PW가 일치하는 사용자가 있는지 확인
+		
 		try {
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
+			String DBid = "test1";
+			String DBpw = "1234";
 			
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			System.out.println("라이브러리 로딩 성공!");
 			// 쿼리를 질의 하기 위해 Connection 객체를 생성
-			Connection con = ConnectionUtil.getConnection();
+			Connection con = DriverManager.getConnection(url, DBid, DBpw);
 			String sql = "select * from member where id=? and pw=? ";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			// ?의 갯수 만큼 세팅 해야한다!!!
@@ -61,7 +72,10 @@ public class AllInOne {
 			if(!con.isClosed()) con.close();
 			
 			
-		}  catch (SQLException e) {
+		} catch (ClassNotFoundException e) {
+			System.err.println("라이브러리 로딩 실패!");
+			e.printStackTrace();
+		} catch (SQLException e) {
 			System.err.println("DB 접근 오류 발생!");
 			e.printStackTrace();
 		} 

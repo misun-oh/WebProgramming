@@ -63,7 +63,7 @@ public class AllInOne_백업 {
 				boolean isAdminYN = "Y".equals(rs.getString("adminYN"));
 				
 
-				loginMember = new MemberVO(id, pw, name, isAdminYN);
+				loginMember = new MemberVO(id, pw, name, isAdminYN, rs.getString("adminYN"));
 			}
 			
 			// 자원해제(자원반납)

@@ -45,10 +45,12 @@ public class AllInOne {
 				// memberVO만들어 봅시다
 				String name = rs.getString("name");
 				// y이면 true, 아니면 false
+				//rs.getString("adminYN") : Y/N
+				//isAdminYN  : true/false
 				boolean isAdminYN = "Y".equals(rs.getString("adminYN"));
 				
 
-				loginMember = new MemberVO(id, pw, name, isAdminYN);
+				loginMember = new MemberVO(id, pw, name, isAdminYN, rs.getString("adminYN"));
 			}
 			
 			// 자원해제(자원반납)

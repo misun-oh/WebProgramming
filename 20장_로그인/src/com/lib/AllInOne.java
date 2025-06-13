@@ -35,10 +35,6 @@ public class AllInOne {
 			pstmt.setString(1, id);
 			pstmt.setString(2, pw);
 			
-			System.out.println("------------sql문장");
-			System.out.println(sql);
-			System.out.println(id);
-			System.out.println(pw);
 			// 쿼리를 실행하고 결과집합를 받아온다
 			ResultSet rs = pstmt.executeQuery();
 			

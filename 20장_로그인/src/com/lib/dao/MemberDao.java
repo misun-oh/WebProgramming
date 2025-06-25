@@ -13,6 +13,7 @@ import com.vo.MemberVO;
 /*
  * 😊 select는 pstmt.executeQuery()을 사용
  * 😊 insert, update, delete 는 pstmt.executeUpdate()를 사용
+ * 
  */
 public class MemberDao {
 	

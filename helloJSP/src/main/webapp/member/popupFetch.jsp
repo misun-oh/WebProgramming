@@ -35,6 +35,19 @@
 		// 버튼을 클릭하면 공지사항 팝업을 숨김처리 합니다
 		closeBtn.addEventListener('click', function(){
 			popup.classList.add('hidden');
+			// 체크박스(하루동안 열지않음)가 선택 되어 있다면 쿠키를 생성
+			// inactiveToday.checked : 요소에 checked 속성이 있다면 true를 반환 
+			if(inactiveToday.checked){
+				// popupFetchCookie.jsp를 호출
+				// 비동기방식으로 페이지를 호출
+				fetch('popupFetchCookie.jsp')
+				.then(res => res.json())
+				.then(data => {
+					console.log(data);
+					console.log(data.res);
+				});
+				
+			}
 		})	
 	}
 	

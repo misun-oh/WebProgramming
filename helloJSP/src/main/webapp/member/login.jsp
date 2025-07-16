@@ -15,45 +15,17 @@ window.onload=function(){
 <main id="wrap">
 
 <%
-String user_id = request.getParameter("user_id");
-String user_pw = request.getParameter("user_pw");
-String save_id = request.getParameter("save_id");
-
-out.print(user_id+"<br>");
-out.print(user_pw+"<br>");
-out.print(save_id+"<br>");
-
-// 1. 쿠키등록
-// 아이디 저장하기가 체크되어 있다면 쿠키에 아이디를 저장
-if("Y".equals(save_id)){
-	CookieManager.makeCookie(response, "user_id", user_id, 60*60*24*7);	
-}
 
 // 2. 쿠키에 user_id가 저장되어 있다면
-Cookie[] cookies = request.getCookies(); // 요청 헤더에 전달된 쿠키정보를 배열로 반환 
+String userId = CookieManager.getCookieValue(request, "user_id");
+String checked = userId.equals("") ? "" : "checked";
 
-String userId = "";
-String checked = "";
-
-out.print("쿠키에 저장된 정보를 출력합니다.===============================<br>");
-
-if(cookies != null){
-	for(Cookie c : cookies){
-		// 서버에 전달된 쿠키 정보를 출력!!
-		out.println(c.getName() + "/" + c.getValue() + "<br>");
-		
-		// 쿠키에 로그인 아이디가 저장되어 있으면 변수에 저장해서 화면에 출력!!!!!
-		if(c.getName().equals("user_id")){
-			userId = c.getValue();
-			//checked = "checked";
-			checked = userId.equals("") ? "" : "checked";
-		}
-	}
-}
-
+// 3. 쿠키 삭제
+//CookieManager.makeCookie(response, "cookie", "맛있는쿠키", 60*60);
+CookieManager.deleteCookie(response, "cookie");
 
 %>
-    <form method="get"> 
+    <form method="post" action="/member/loginAction.jsp"> 
         <img class="mb-4" src="../img/cat.jpg" alt="" width="100" height="100">
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
         <div class="form-floating">

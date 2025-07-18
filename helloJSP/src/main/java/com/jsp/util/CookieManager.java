@@ -28,11 +28,14 @@ public class CookieManager {
 		String cookieValue = "";
 		// 요청 객체로 부터 쿠키배열을 꺼내오기
 		Cookie[] cookies = req.getCookies();
-		for(Cookie cookie : cookies) {
-			// 쿠키의 name값이 일치 하면 value를 반환
-			if(cookie.getName().equals(cName)) {
-				cookieValue = cookie.getValue();
-				break;
+		// 등록된 쿠키가 하나도 없는경우 null이 반환 되어 오류가 발생 할 수 있다
+		if(cookies!=null) {	
+			for(Cookie cookie : cookies) {
+				// 쿠키의 name값이 일치 하면 value를 반환
+				if(cookie.getName().equals(cName)) {
+					cookieValue = cookie.getValue();
+					break;
+				}
 			}
 		}
 		return cookieValue;

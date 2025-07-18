@@ -41,7 +41,7 @@
 <%
 	// 현재페이지를 기준으로 위치 잡는다
 	// / : 최상위경로, ../ : 상위경로,  ./ : 현재위치
-	request.getRequestDispatcher("RequestForward.jsp")
+	request.getRequestDispatcher("RequestForward.jsp?t=한글&tt=e")
 						.forward(request, response);
 %>
 

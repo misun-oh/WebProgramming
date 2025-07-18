@@ -1,10 +1,27 @@
 window.addEventListener('load', ()=>{
-    loginBtn.addEventListener('click', ()=>{
-        location.href = '로그인.html';
-    });
-    signUpBtn.addEventListener('click', ()=>{
-        location.href= '회원가입.html'
-    });
+	// 버튼이 있을때만 이벤트를 추가
+    let loginBtn = document.querySelector('#loginBtn');
+    if(loginBtn != null){
+	    loginBtn.addEventListener('click', ()=>{
+	        location.href = '/member/login_cookie.jsp';
+	    });
+    }
+    
+    // 버튼이 있을때만 이벤트를 추가
+    let signUpBtn = document.querySelector('#signUpBtn');
+    if(signUpBtn != null){
+	    signUpBtn.addEventListener('click', ()=>{
+	        location.href= '회원가입.html'
+	    });
+    }
+    
+    // 로그아웃 버튼을 클릭하면 /member/loginout.jsp페이지로 연결
+    let logoutBtn = document.querySelector('#logoutBtn');
+    if(logoutBtn != null){
+	    logoutBtn.addEventListener('click', ()=>{
+	        location.href= '/member/loginout.jsp'
+	    });
+    }
 });
 
 

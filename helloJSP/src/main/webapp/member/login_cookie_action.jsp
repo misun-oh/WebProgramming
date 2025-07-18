@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <%
 	// 파라메터(아이디, 비밀번호, 체크박스)를 받아서 출력
 	String user_id = request.getParameter("user_id");
@@ -30,6 +31,20 @@
 		cookie.setMaxAge(60*60*24*7);
 		response.addCookie(cookie);
 	}
+	
+	// id=13, pw=1234이면 로그인 성공
+	// 사용자 인증 - 데이터베이스에 id/pw가 일치하는 사용자가 있는지 확인
+	if("13".equals(user_id) && "1234".equals(user_pw)){
+		session.setAttribute("user_id", user_id);
+		// 로그인 성공
+		out.print("<h1>로그인 성공</h1>");
+		out.print(user_id + "님 환영 합니다.");
+		out.print("세션영역에 아이디를 저장 하였습니다.");
+	} else {
+		// 로그인 실패
+		out.print("<h1>로그인 실패</h1>");
+	}
+
 %>
 
 <h2>파라메터 출력</h2>
@@ -37,6 +52,14 @@
 <%=user_pw %><br>
 <%=chk_save_id %><br>
 
+<a href="login_cookie.jsp">로그인페이로 이동하기</a>
 
 </body>
 </html>
+
+
+
+
+
+
+

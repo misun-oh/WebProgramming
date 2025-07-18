@@ -31,6 +31,7 @@
 <p>페이지가 전환되면 영역의 값은 유지 되지 않는다 (null을 출력)</p>
 pageName : <%= pageContext.getAttribute("pageName") %>
 </body>
+
 </html>
 
 

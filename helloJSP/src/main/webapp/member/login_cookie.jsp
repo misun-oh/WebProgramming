@@ -8,7 +8,16 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@include file="/common/header.jsp" %>
+세션 만료 시간 : <%=session.getMaxInactiveInterval() %>초
+<br>WEB.XML의 설정의 의해서 동작
+<br>세션 ID : <%=session.getId() %>
+<br>  
 <%
+	session.setMaxInactiveInterval(60*60);
+	out.print("변경후 세션 만료 시간 : " + session.getMaxInactiveInterval());
+
+
 	String userId = CookieManager.getCookieValue(request, "chk_save_id");
 	String checked = "".equals(userId) ? "" : "checked";
 	
@@ -27,7 +36,17 @@
 <!-- 404오류 : 요청 주소에 페이지(url매핑)가 없는경우 
 	form의 action값을 확인!!!!!!!
 -->
-<form method="get" action="/member/login_cookie_action.jsp"> 
+
+<%
+// 로그인사용자의 경우 xx님 환영합니다 메세지를 출력
+if(session.getAttribute("user_id") != null){
+	String user_id = (String)session.getAttribute("user_id");
+	out.print(user_id + "님 환영 합니다.");
+} else {
+	
+%>
+<!-- 서블릿을 호출 할 수 있도록 요청 경로를 지정 -->
+<form method="get" action="/member/loginAction"> 
     <img class="mb-4" src="../img/cat.jpg" alt="" width="100" height="100">
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
     <div class="form-floating">
@@ -48,5 +67,8 @@
     <button class="btn btn-primary w-100 py-2" type="submit">로그인</button>
     <p class="mt-5 mb-3 text-body-secondary">© 2017–2025</p>
 </form>
+<%} %>
+
+<%@include file="/common/footer.jsp" %>
 </body>
 </html>

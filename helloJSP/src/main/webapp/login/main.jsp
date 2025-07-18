@@ -11,5 +11,7 @@
 						? (String)session.getAttribute("user_id") : ""; %>
 
 <%=user_id %>님 환영 합니다.
+
+<a href="/login/login.jsp">로그인 페이지로 이동 하기</a>
 </body>
 </html>

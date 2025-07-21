@@ -1,4 +1,4 @@
-package com.border.controller;
+package com.board.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,6 +20,7 @@ public class LoginAction extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
+		// DB에 접근해서 Member객체를 반환 받아 오도록 수정
 		if("13".equals(user_id) && "1234".equals(user_pw)) {
 			// 인증된 사용자의 정보를 session객체의 속성으로 추가 하여 로그인 처리를 한다
 			session.setAttribute("user_id", user_id);

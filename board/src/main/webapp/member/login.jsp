@@ -1,16 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
 <style>
 .red{color:red}
 </style>
 <script>
 	window.addEventListener('load', function(){
-		let logoutBtn = document.querySelector('#logoutBtn');
+		let logoutBtn = document.querySelector('#logoutFormBtn');
 		if(logoutBtn != null){
 			logoutBtn.addEventListener('click', ()=>{
 				//location.href="/member/logout";
@@ -22,8 +18,10 @@
 		}
 	});
 </script>
-</head>
-<body>
+
+
+<%@include file="/common/header.jsp" %>
+
 <h1>로그인</h1>
 <%
 	if(session.getAttribute("user_id") == null) {
@@ -42,9 +40,9 @@
 %>
 로그인 id : ${sessionScope.user_id } 님 환영합니다.
 	<form name="logoutForm"></form>
-	<button id="logoutBtn">로그아웃</button>
+	<button id="logoutFormBtn">로그아웃</button>
 <%
 	} 
 %>
-</body>
-</html>
+
+<%@include file="/common/footer.jsp" %>

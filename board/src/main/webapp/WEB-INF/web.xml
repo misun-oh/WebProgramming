@@ -29,4 +29,24 @@
     <servlet-name>LogoutAction</servlet-name>
     <url-pattern>/LogoutAction</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MemberListController</display-name>
+    <servlet-name>MemberListController</servlet-name>
+    <servlet-class>com.board.controller.MemberListController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberListController</servlet-name>
+    <url-pattern>/MemberListController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MemberRegisterController</display-name>
+    <servlet-name>MemberRegisterController</servlet-name>
+    <servlet-class>com.board.controller.MemberRegisterController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberRegisterController</servlet-name>
+    <url-pattern>/MemberRegisterController</url-pattern>
+  </servlet-mapping>
 </web-app>

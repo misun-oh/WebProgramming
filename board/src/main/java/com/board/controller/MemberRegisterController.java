@@ -37,7 +37,8 @@ public class MemberRegisterController extends HttpServlet {
 		} else {
 			// 입력 실패
 			// 메세지 처리 후 뒤로가기
-			
+			request.setAttribute("msg", "등록중 예외가 발생 하였습니다.<br>관리에게 문의 해주세요.");
+			request.getRequestDispatcher("/common/msgbox.jsp").forward(request, response);
 		}
 		
 	}

@@ -11,6 +11,8 @@
 
 <script>
 	// 모달창에 메세지를 출력후 다른페이지로 이동
+	// - 메세지가 없으면 메세지창 띄우지 않기
+	// - url 이 없으면 뒤로가기
 	let msg = '${requestScope.msg}';
 	let url = '${requestScope.url}';
 	
@@ -18,14 +20,16 @@
 	window.addEventListener('load', function(){
 		modalCloseBtn.addEventListener('click', function(){
 			//location.href="/member/list";
-			if(!url){
+			if(url != ''){				
 				location.href = url;				
 			} else {
 				history.back();
 			}
+			
 		});
 		
-		showModal('메세지 박스', msg);
+		if(msg != '')
+			showModal('메세지 박스', msg);
 		
 	})
 </script>

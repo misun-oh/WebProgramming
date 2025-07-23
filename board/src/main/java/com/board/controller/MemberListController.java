@@ -11,6 +11,7 @@ import java.util.List;
 import com.board.dto.MemberDto;
 import com.board.service.MemberService;
 
+// 요청은 서블릿으로 응답은 JSP로 
 @WebServlet("/member/list")
 public class MemberListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;

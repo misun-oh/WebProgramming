@@ -23,5 +23,9 @@ public class MemberService {
 	public List<MemberDto> getMemberList(){
 		return dao.getMemberList();
 	}
+
+	public boolean idCheck(String id) {
+		return dao.idCheck(id);
+	}
 	
 }

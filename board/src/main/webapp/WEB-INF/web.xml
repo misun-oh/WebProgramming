@@ -49,4 +49,14 @@
     <servlet-name>MemberRegisterController</servlet-name>
     <url-pattern>/MemberRegisterController</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>IdCheckController</display-name>
+    <servlet-name>IdCheckController</servlet-name>
+    <servlet-class>com.board.controller.IdCheckController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>IdCheckController</servlet-name>
+    <url-pattern>/IdCheckController</url-pattern>
+  </servlet-mapping>
 </web-app>

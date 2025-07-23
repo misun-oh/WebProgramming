@@ -140,4 +140,37 @@ public class MemberDao {
 		}
 		*/
 	}
+
+	public boolean idCheck(String id) {
+		String sql = "select * from member where id = ?";
+		
+		ResultSet rs = null;
+		// 데이터 베이스에 접근에서 멤버객체를 생성하고 리스트에 담기
+		try (Connection con = ConnectionUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+			){
+			
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery(); // 쿼리의 실행 결과 결과집합에 접근할수 있는 객체
+			
+			if (rs.next()) {
+				return false;
+			} else {
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if(!rs.isClosed())	rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return false;
+	}
 }

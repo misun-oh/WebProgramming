@@ -36,7 +36,7 @@
     function showModal(title, msg){
         // 모달창 세팅
         modalLabel.innerText = title;
-        modalBody.innerText = msg;
+        modalBody.innerHTML = msg;
         modalSaveBtn.style.display = 'none';
         // 모달창 화면에 출력
         myModal.show();

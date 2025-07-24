@@ -44,7 +44,14 @@
 		}
 		%>
 	</table>
+	
+	
 	<!-- 테이블 시작 -->
+	
+	
+	
+	
+	
 </div>
 
 <%@include file="/common/footer.jsp" %>

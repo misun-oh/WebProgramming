@@ -20,9 +20,10 @@
 	window.addEventListener('load', function(){
 		modalCloseBtn.addEventListener('click', function(){
 			//location.href="/member/list";
-			if(url != ''){				
+			if(url){				
 				location.href = url;				
 			} else {
+				// url 없으면 원래 있던 곳으로
 				history.back();
 			}
 			

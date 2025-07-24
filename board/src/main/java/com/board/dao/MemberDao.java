@@ -120,10 +120,21 @@ public class MemberDao {
 	public static void main(String[] args) {
 		MemberDao dao = new MemberDao();
 		
+		int res = dao.deleteMember("201");
+		System.out.println(res);
+		
+		/*
+		// 사용자 조회
+		MemberDto member = dao.getMember("201");
+		System.out.println(member);
+		*/
+		
+		/*
 		// 사용자 등록
 		MemberDto member = new MemberDto("id", "pass", "name" ,"");
 		int res = dao.insert(member);
 		System.out.println(res + "건 처리 되었습니다.");
+		*/
 		
 		/*
 		// 로그인
@@ -172,5 +183,68 @@ public class MemberDao {
 		}
 		
 		return false;
+	}
+
+	/**
+	 * 사용자 정보를 조회 후 Member객체를 반환
+	 * @param id
+	 * @return
+	 */
+	public MemberDto getMember(String id) {
+		MemberDto member = null;
+		String sql = "select * from member where id = ?";
+		
+		ResultSet rs = null;
+		// 데이터 베이스에 접근에서 멤버객체를 생성하고 리스트에 담기
+		try (Connection con = ConnectionUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+			){
+			
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery(); // 쿼리의 실행 결과 결과집합에 접근할수 있는 객체
+			
+			if (rs.next()) {
+				// 행을 읽어와서 MemberDto객체를 생성
+				String name = rs.getString("name");
+				String regidate = rs.getString("regidate");
+				
+				// member객체를 생성
+				member = new MemberDto(id, "", name, regidate);
+			} 
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if(!rs.isClosed())	rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return member;
+		
+	}
+
+	public int deleteMember(String id) {
+		int res = 0;
+		String sql = "delete member where id = ?";
+		System.out.println(sql+"========"+id);
+		try (Connection con = ConnectionUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+			
+			pstmt.setString(1, id);
+			
+			// dml문장의 실행 결과를 변수에 담는다 = 몇건 처리가 되었는지 반환됨
+			res = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return res;
 	}
 }

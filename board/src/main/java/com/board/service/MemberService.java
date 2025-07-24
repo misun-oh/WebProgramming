@@ -27,5 +27,13 @@ public class MemberService {
 	public boolean idCheck(String id) {
 		return dao.idCheck(id);
 	}
+
+	public MemberDto getMember(String id) {
+		return dao.getMember(id);
+	}
+
+	public int deleteMember(String id) {
+		return dao.deleteMember(id);
+	}
 	
 }

@@ -59,4 +59,34 @@
     <servlet-name>IdCheckController</servlet-name>
     <url-pattern>/IdCheckController</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MemberViewController</display-name>
+    <servlet-name>MemberViewController</servlet-name>
+    <servlet-class>com.board.controller.MemberViewController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberViewController</servlet-name>
+    <url-pattern>/MemberViewController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MemberDeleteController</display-name>
+    <servlet-name>MemberDeleteController</servlet-name>
+    <servlet-class>com.board.controller.MemberDeleteController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberDeleteController</servlet-name>
+    <url-pattern>/MemberDeleteController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MemberEditController</display-name>
+    <servlet-name>MemberEditController</servlet-name>
+    <servlet-class>com.board.controller.MemberEditController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberEditController</servlet-name>
+    <url-pattern>/MemberEditController</url-pattern>
+  </servlet-mapping>
 </web-app>

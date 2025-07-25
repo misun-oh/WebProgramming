@@ -46,7 +46,7 @@
 	<form action="/member/edit.do" method="post" name="editForm">
 	 
 		<div class="form-floating mb-3">
-		<input type="text" class="form-control-plaintext" id="id" name="id" value="${member.id }">
+		<input type="text" readonly class="form-control-plaintext" id="id" name="id" value="${member.id }">
 		<label for="id">아이디</label>
 		</div>
 		<div class="form-floating mb-3">

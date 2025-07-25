@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.board.dto.MemberDto;
+import com.board.dto.SearchDto;
 import com.board.util.ConnectionUtil;
 
 public class MemberDao {
@@ -20,7 +21,7 @@ public class MemberDao {
 	 */
 	public int insert(MemberDto member) {
 		int res = 0;
-		String sql = "insert into member (id, pass, name, regidate) \r\n"
+		String sql = "insert into member (id, pass, name, regidate)  "
 					+ "    			values (?, ?, ?, sysdate)";
 		
 		try (Connection con = ConnectionUtil.getConnection();
@@ -115,13 +116,80 @@ public class MemberDao {
 		return list;
 	}
 	
-	
+	/**
+	 * 사용자의 목록을 조회후 반환
+	 * 
+	 * 페이징처리
+	 * 	- searchDto를 매개변수로 받아오기
+	 *  - 쿼리를 페이징 처리가된 쿼리로 수정하기
+	 * @return
+	 */
+	public List<MemberDto> getMemberListPageing(SearchDto searchDto) {
+		List<MemberDto> list = new ArrayList<MemberDto>();
+		// 실행할 쿼리
+		// 페이징, 검색
+		String sql = "SELECT  * "
+					+ "	FROM member "
+					+ "ORDER BY regidate desc "
+					+ "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+		
+		ResultSet rs = null;
+		// 데이터 베이스에 접근에서 멤버객체를 생성하고 리스트에 담기
+		try (Connection con = ConnectionUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+			){
+			
+			// ? 파라메터 세팅
+			pstmt.setInt(1, (searchDto.getPageNo()-1) * searchDto.getAmount());
+			pstmt.setInt(2, searchDto.getAmount());
+			rs = pstmt.executeQuery(); // 쿼리의 실행 결과 결과집합에 접근할수 있는 객체
+
+			while(rs.next()) {
+				// 행을 읽어와서 MemberDto객체를 생성 
+				String id = rs.getString("id");
+				String name = rs.getString("name");
+				String regidate = rs.getString("regidate");
+				MemberDto member = new MemberDto(id, "", name, regidate);
+				// 리스트에 MemberDto 객체를 추가
+				list.add(member);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if(!rs.isClosed()) rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
 	
 	public static void main(String[] args) {
 		MemberDao dao = new MemberDao();
+		// 1 ~ 10
+		//SearchDto dto = new SearchDto();
+		// 11 ~ 20
+		// new SearchDto(페이지번호,페이지당게시물수,"","");
+		SearchDto dto = new SearchDto(2,10,"","");
+		List<MemberDto> list = dao.getMemberListPageing(dto);
+		System.out.println(list);
+		System.out.println("size" + list.size());
 		
+		/*
+		MemberDto member = new MemberDto("1", "1234567", "", "");
+		int res = dao.updateMember(member);
+		System.out.println(res+"건 처리 되었습니다.");
+		*/
+		
+		/*
 		int res = dao.deleteMember("201");
 		System.out.println(res);
+		*/
 		
 		/*
 		// 사용자 조회
@@ -236,6 +304,27 @@ public class MemberDao {
 				PreparedStatement pstmt = con.prepareStatement(sql);){
 			
 			pstmt.setString(1, id);
+			
+			// dml문장의 실행 결과를 변수에 담는다 = 몇건 처리가 되었는지 반환됨
+			res = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+
+	public int updateMember(MemberDto member) {
+		int res = 0;
+		String sql = "update member set pass = ? where id = ?";
+		System.out.println("updateMember()    ========  " + member);
+		try (Connection con = ConnectionUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+			
+			pstmt.setString(1, member.getPass());
+			pstmt.setString(2, member.getId());
 			
 			// dml문장의 실행 결과를 변수에 담는다 = 몇건 처리가 되었는지 반환됨
 			res = pstmt.executeUpdate();

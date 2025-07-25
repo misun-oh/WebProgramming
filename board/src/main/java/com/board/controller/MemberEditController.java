@@ -35,9 +35,28 @@ public class MemberEditController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(request.getParameter("pass"));
-		System.out.println(request.getParameter("id"));
-		doGet(request, response);
+		MemberService service = new MemberService();
+		
+		
+		System.out.println("pass" + request.getParameter("pass"));
+		System.out.println("id" + request.getParameter("id"));
+		
+		String id = request.getParameter("id");
+		String pass = request.getParameter("pass");
+		
+		// 요청정보를 수집해서 member객체를 생성
+		MemberDto member = new MemberDto(id, pass, "", "");
+		int res = service.updateMember(member);
+		
+		if(res > 0) {
+			// 수정 되었습니다. -> 상세페이지로 이동
+			request.setAttribute("msg", "수정 되었습니다.");
+			request.setAttribute("url", "/member/view.do?id="+id);
+		} else {
+			// 수정중 예외사항이 발생 했습니다. -> 뒤로가기
+			request.setAttribute("msg", "수정중 예외가 발생 되었습니다. 관리자 에게 문의해주세요.");
+		}
+		request.getRequestDispatcher("/common/msgbox.jsp").forward(request, response);
 	}
 
 }

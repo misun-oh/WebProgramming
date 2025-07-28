@@ -171,6 +171,11 @@ public class MemberDao {
 	
 	public static void main(String[] args) {
 		MemberDao dao = new MemberDao();
+		
+		int totalCnt = dao.getTotalCnt();
+		System.out.println("총건수 : " + totalCnt);
+		
+		/*
 		// 1 ~ 10
 		//SearchDto dto = new SearchDto();
 		// 11 ~ 20
@@ -179,6 +184,7 @@ public class MemberDao {
 		List<MemberDto> list = dao.getMemberListPageing(dto);
 		System.out.println(list);
 		System.out.println("size" + list.size());
+		*/
 		
 		/*
 		MemberDto member = new MemberDto("1", "1234567", "", "");
@@ -335,5 +341,35 @@ public class MemberDao {
 		}
 		
 		return res;
+	}
+
+	public int getTotalCnt() {
+		
+		String sql = "select count(*) from member";
+		
+		ResultSet rs = null;
+		int totalCnt = 0;
+		// 데이터 베이스에 접근에서 멤버객체를 생성하고 리스트에 담기
+		try (Connection con = ConnectionUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+			){
+			rs = pstmt.executeQuery(); // 쿼리의 실행 결과 결과집합에 접근할수 있는 객체
+			
+			if (rs.next()) {
+				totalCnt = rs.getInt(1);
+			} 
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if(!rs.isClosed())	rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return totalCnt;
 	}
 }

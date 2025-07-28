@@ -3,6 +3,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <style>
@@ -15,19 +16,7 @@
 <div id="wrap">
 
 	<h2>사용자 목록 조회</h2>
-	<div class="input-group mb-3">
-	<button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
-	<ul class="dropdown-menu">
-	  <li><a class="dropdown-item" href="#">Action</a></li>
-	  <li><a class="dropdown-item" href="#">Another action</a></li>
-	  <li><a class="dropdown-item" href="#">Something else here</a></li>
-	  <li><hr class="dropdown-divider"></li>
-	  <li><a class="dropdown-item" href="#">Separated link</a></li>
-	</ul>
-	<input type="text" class="form-control" aria-label="Text input with dropdown button">
-	<button class="btn btn-outline-secondary" type="button">Button</button>
 	
-	</div>
 
 	<!-- 버튼 시작 -->
 	<div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -79,7 +68,6 @@
 			
 		}
 	%>
-	
 	
 	
 	

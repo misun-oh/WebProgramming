@@ -48,5 +48,9 @@ public class MemberService {
 		}
 		return dao.updateMember(member);
 	}
+
+	public int getTotalCnt() {
+		return dao.getTotalCnt();
+	}
 	
 }

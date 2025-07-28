@@ -11,6 +11,18 @@
 		cursor : pointer;
 	}
 </style>
+<script>
+	// 페이지블럭의 버튼을 클릭 했을때 리스트 페이지를 요청
+	// 페이지 번호, 페이지당게시물수를 파라메터로 넘겨주는 역할
+	function go(pageNo){
+		console.log("pageNo : ", pageNo);
+		// pageNo를 매개변수로 넘어온 값으로 변경
+		document.querySelector("[name=pageNo]").value = pageNo;
+		// form 전송
+		searchForm.submit();
+		
+	}
+</script>
 <%@include file="/common/header.jsp" %>
 
 <div id="wrap">
@@ -54,23 +66,34 @@
 	
 	<!-- 페이지 블럭 -->
 	pageDto : ${pageDto }<br>
-	
 	<%
 		if(request.getAttribute("pageDto") != null){
+			// 내장객체의 영역에 저장된 객체를 변수에 저장
 			PageDto pageDto = (PageDto)request.getAttribute("pageDto");
-			if(pageDto.isPrev())
-				out.print(" <a href='/member/list?pageNo="+(pageDto.getStartNo()-1)+"'>" + "<" + "</a> ");
-			for(int pageNo = pageDto.getStartNo();pageNo<=pageDto.getEndNo();pageNo++){
-				out.print(" <a href='/member/list?pageNo="+pageNo+"'>" + pageNo + "</a> ");
+			// 앞으로가기 버튼
+			if(pageDto.isPrev()){
+				out.print("<");
 			}
-			if(pageDto.isNext())
-				out.print(" <a href='/member/list?pageNo="+(pageDto.getEndNo()+1)+"'>" + ">" + "</a> ");
+			int startNo = pageDto.getStartNo();
+			int endNo = pageDto.getEndNo();
+			// 페이지번호 출력
+			for(int i = startNo; i <= endNo; i++){
+				out.print("<a onclick='go("+i+")'>"+ i + "</a> ");
+			}
 			
-		}
+			// 뒤로가기버튼
+			if(pageDto.isNext()){
+				out.print(">");
+			}
+		};
 	%>
 	
-	
-	
+	<form action="/member/list" name="searchForm">
+		pageNo : <input type="text" name="pageNo" value="${pageDto.pageNo }"><br>
+		amount : <input type="text" name="amount" value="${pageDto.amount }">
+	</form>
 </div>
+
+
 
 <%@include file="/common/footer.jsp" %>

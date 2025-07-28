@@ -85,8 +85,10 @@
 			if(pageDto.isNext()){
 				out.print(">");
 			}
-		};
+		}
 	%>
+	
+	<%@include file="/common/pageing.jsp" %>
 	
 	<form action="/member/list" name="searchForm">
 		pageNo : <input type="text" name="pageNo" value="${pageDto.pageNo }"><br>

@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<link rel="icon" href="/favicon.ico">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -22,6 +24,12 @@
 
     <div id="container">
         <header class="p-3 text-bg-dark">
+        	<!-- 페이징 처리를 위한 공통폼 -->
+        	<form action="/member/list" name="searchForm">
+				pageNo : <input type="text" name="pageNo" value="${pageDto.pageNo }"><br>
+				amount : <input type="text" name="amount" value="${pageDto.amount }">
+			</form>
+        	
             <!-- header -->
             <div class="container"> 
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"> 

@@ -11,18 +11,6 @@
 		cursor : pointer;
 	}
 </style>
-<script>
-	// 페이지블럭의 버튼을 클릭 했을때 리스트 페이지를 요청
-	// 페이지 번호, 페이지당게시물수를 파라메터로 넘겨주는 역할
-	function go(pageNo){
-		console.log("pageNo : ", pageNo);
-		// pageNo를 매개변수로 넘어온 값으로 변경
-		document.querySelector("[name=pageNo]").value = pageNo;
-		// form 전송
-		searchForm.submit();
-		
-	}
-</script>
 <%@include file="/common/header.jsp" %>
 
 <div id="wrap">
@@ -90,10 +78,7 @@
 	
 	<%@include file="/common/pageing.jsp" %>
 	
-	<form action="/member/list" name="searchForm">
-		pageNo : <input type="text" name="pageNo" value="${pageDto.pageNo }"><br>
-		amount : <input type="text" name="amount" value="${pageDto.amount }">
-	</form>
+	
 </div>
 
 

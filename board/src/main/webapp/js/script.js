@@ -24,7 +24,18 @@ window.addEventListener('load', ()=>{
     }
 });
 
-
+// 페이지블럭의 버튼을 클릭 했을때 리스트 페이지를 요청
+// 페이지 번호, 페이지당게시물수를 파라메터로 넘겨주는 역할
+function go(pageNo){
+	console.log("pageNo : ", pageNo);
+	// pageNo를 매개변수로 넘어온 값으로 변경
+	document.querySelector("[name=pageNo]").value = pageNo;
+	
+	searchForm.action = url;
+	// form 전송
+	searchForm.submit();
+	
+}
 
 //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
 function sample4_execDaumPostcode() {

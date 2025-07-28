@@ -2,63 +2,42 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.board.dto.PageDto"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<h2>태그라이브러리를 사용하여 페이지블럭을 출력해봅시다</h2>
 
+
+<!-- 공통 - PageDto객체가 있으면 페이지 블럭을 출력 -->
+<h6>태그라이브러리를 사용하여 페이지블럭을 출력해봅시다</h6>
+	<!-- 태그라이브러리를 이용하여 출력시 el문법을 이용하여 null처리 없이 편리하게 이용할 수 있다! -->
 	<c:if test="${pageDto != null }">
-		<h3>pageing블럭 출력</h3>
+		<nav aria-label="...">
+		<ul class="pagination justify-content-center">
+		<!-- 앞으로 가기 버튼 -->
+		<!-- $ {객체명.필드명} ->  get메서드의 실행 결과를 반환 -->
+		<!-- ()를 붙여서 메서드를 실행 -->
+		  <c:if test="${pageDto.isPrev()}">
+			  <li class="page-item">
+			    <span class="page-link" onclick="go(${pageDto.startNo-1})">이전</span>
+			  </li>
+		  </c:if>
+		<!-- var=변수명, begin=시작번호, end=끝번호 -->
+		<c:forEach var="pageNo" begin="${pageDto.startNo }" end="${pageDto.endNo}">
+	      <li class="page-item ${pageDto.pageNo == pageNo ? "active" : "" }">
+	      	<a class="page-link" href="javascript:go(${pageNo })">${pageNo }</a>
+	      </li>
+		</c:forEach>
+		  
+		<!-- 뒤로가기 버튼 -->
+		<c:if test="${pageDto.isNext() }">
+		  <li class="page-item">
+		    <a class="page-link" href="javascript:go(${pageDto.endNo+1 })">Next</a>
+		  </li>
+		</c:if>
+		</ul>
+		</nav>
+		
 	</c:if>
 	<c:if test="${pageDto == null }">
 		<h3>pageDto is null</h3>
 	</c:if>
 	
-<hr>
-<h2>스크립틀릿을 사용하여 페이블블럭을 출력</h2>
-
-	<%
-		if(request.getAttribute("pageDto") != null){
-			// 내장객체의 영역에 저장된 객체를 변수에 저장
-			PageDto pageDto = (PageDto)request.getAttribute("pageDto");
-			// 앞으로가기 버튼
-			if(pageDto.isPrev()){
-				out.print("<");
-			}
-			int startNo = pageDto.getStartNo();
-			int endNo = pageDto.getEndNo();
-	%>
-	<nav aria-label="...">
-    <ul class="pagination justify-content-center">
-    <%
-    if(pageDto.isPrev()){
-    %>
-      <li class="page-item">
-        <a class="page-link" href="javascript:go(<%=pageDto.getStartNo()-1%>)">이전</a>
-      </li>
-   <%} %>
-   <%	
-   for(int i = startNo; i <= endNo; i++){
-	   String active = i == pageDto.getPageNo() ? "active" : "";
-   %>   
-      <li class="page-item <%=active%>"><a class="page-link" href="javascript:go(<%=i%>)"><%=i %></a></li>
-   <%	
-   	}
-   %>  
-   <%
-    if(pageDto.isNext()){
-   %>   
-      <li class="page-item">
-        <a class="page-link" href="javascript:go(<%=pageDto.getEndNo()+1%>)">다음</a>
-      </li>
-   <%}
-    } 
-    %>  
-    </ul>
-    </nav>
 </body>
 </html>

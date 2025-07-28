@@ -31,7 +31,7 @@ public class PageDto {
 
         this.totalPages = (int) Math.ceil((double) totalItems / amount);
 
-        int blockSize = 3; // 페이지 블럭 크기
+        int blockSize = 5; // 페이지 블럭 크기
         this.startNo = ((pageNo - 1) / blockSize) * blockSize + 1;
         this.endNo = Math.min(startNo + blockSize - 1, totalPages);
 

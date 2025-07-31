@@ -31,21 +31,30 @@ public class MemberListController extends HttpServlet {
 		System.out.println("pageNo(요청페이지 번호) : " + pageNo);
 		String amount = request.getParameter("amount");
 		System.out.println("amount(페이지당 게시물 수) : " + pageNo);
-		SearchDto search = new SearchDto(pageNo, amount);
+
+		// 검색을 위한 파라메터
+		String searchField = request.getParameter("searchField");
+		String searchWord = request.getParameter("searchWord");
 		
+		// SearchDto - 검색을 위한 파라메터, 페이지 처리를 위한 파라메터 세팅
+		SearchDto search = new SearchDto(pageNo, amount, searchField, searchWord);
+		
+		// 리스트를 출력하기 위한 쿼리
 		List<MemberDto> list = service.getMemberListPageing(search);
+		// 총 건수를 조회 하는 쿼리 - 페이지 블럭을 그리는데 필요
+		int totalCnt = service.getTotalCnt(search);
 				
 		// 내장객체의 영역에 list를 담아 화면에 전달
 		request.setAttribute("list", list);
 		
 		// 페이지블럭을 그리기 위해 pageDto객체를 생성합니다.
 		// TODO 총건수를 조회 하는 쿼리가 필요
-		int totalCnt = service.getTotalCnt();
 		PageDto pageDto = new PageDto(search, totalCnt);
 		request.setAttribute("pageDto", pageDto);
-		
+
 		// SERVLET으로 요청을 받은후 JSP로 화면을 전환
 		request.getRequestDispatcher("/member/list.jsp").forward(request, response);
+		
 	}
 
 	/**

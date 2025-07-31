@@ -13,13 +13,45 @@ import com.board.dto.SearchDto;
 import com.board.util.ConnectionUtil;
 
 public class BoardDao {
-
+	public static void main(String[] args) {
+		BoardDao dao = new BoardDao();
+		SearchDto searchDto = new SearchDto(1, 10, "id", "205");
+		List<BoardDto> list = dao.getList(searchDto);
+		System.out.println("list : " + list);
+	}
+	
 	public List<BoardDto> getList(SearchDto searchDto) {
 		List<BoardDto> list = new ArrayList<BoardDto>();
+		
+		String where = "";
+		// 필터링을 위한 조건문
+		if(searchDto.getSearchField() != null && searchDto.getSearchWord() != null) {
+			//where = "and " + searchDto.getSearchField() + " like '%" + searchDto.getSearchWord() + "%' ";
+			
+			// /로 끊어서 문자 배열을 반환
+			String[] searchFieldArr = searchDto.getSearchField().split("/");
+			for(int i=0;i<searchFieldArr.length;i++) {
+				where += searchFieldArr[i] + " like '%" + searchDto.getSearchWord() + "%' ";
+				if(i != searchFieldArr.length-1) {
+					// 마지막요소에는 or 를 붙이고 싶지 않음
+					where += " or ";
+				}
+			}
+			
+			where = "and (" + where + ")";
+			
+			System.out.println("where : " + where);
+		}
+		
 		// 실행할 쿼리
 		// 페이징, 검색
-		String sql = "SELECT  * "
+		String sql = "SELECT num, title, id, visitcount,\r\n"
+					+ "        decode(to_char(postdate, 'yyyy-mm-dd'), to_char(sysdate,'yyyy-mm-dd')\r\n"
+					+ "                    , to_char(postdate,'hh24:mi:ss'),  to_char(postdate, 'yyyy-mm-dd')) postdate  "
 					+ "	FROM board "
+					// 조건절
+					+ " where 1=1 "
+					+ where
 					+ "ORDER BY num desc "
 					+ "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
 		
@@ -38,12 +70,12 @@ public class BoardDao {
 				// 행을 읽어와서 MemberDto객체를 생성 
 				int num = rs.getInt("num");
 				String title = rs.getString("title");
-				String content = rs.getString("content");
+				//String content = rs.getString("content");
 				String id = rs.getString("id");
 				String postdate = rs.getString("postdate");
 				int visitcount = rs.getInt("visitcount");
 				
-				BoardDto board = new BoardDto(num, title, content, id, postdate, visitcount);
+				BoardDto board = new BoardDto(num, title, "", id, postdate, visitcount);
 				// 리스트에 MemberDto 객체를 추가
 				list.add(board);
 			}
@@ -63,8 +95,34 @@ public class BoardDao {
 		return list;
 	}
 
-	public int getTotalCnt() {
-		String sql = "select count(*) from board";
+	/**
+	 * 검색필드, 검색어를 파라메터로 전달 받아 조건절을 생성 
+	 * 필터링된(= 조회조건) 대상을 기준으로 건수를 조회
+	 * @param searchDto
+	 * @return
+	 */
+	public int getTotalCnt(SearchDto searchDto) {
+		String where = "";
+		// 필터링을 위한 조건문
+		if(searchDto.getSearchField() != null && searchDto.getSearchWord() != null) {
+			//where = "and " + searchDto.getSearchField() + " like '%" + searchDto.getSearchWord() + "%' ";
+			
+			// /로 끊어서 문자 배열을 반환
+			String[] searchFieldArr = searchDto.getSearchField().split("/");
+			for(int i=0;i<searchFieldArr.length;i++) {
+				where += searchFieldArr[i] + " like '%" + searchDto.getSearchWord() + "%' ";
+				if(i != searchFieldArr.length-1) {
+					// 마지막요소에는 or 를 붙이고 싶지 않음
+					where += " or ";
+				}
+			}
+			
+			where = "and (" + where + ")";
+			
+			System.out.println("where : " + where);
+		}
+		
+		String sql = "select count(*) from board where 1=1 " + where;
 		
 		ResultSet rs = null;
 		int totalCnt = 0;

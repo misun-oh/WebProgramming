@@ -14,8 +14,8 @@ public class BoardService {
 		return dao.getList(searchDto);
 	}
 
-	public int getTotalCnt() {
-		return dao.getTotalCnt();
+	public int getTotalCnt(SearchDto searchDto) {
+		return dao.getTotalCnt(searchDto);
 	}
 
 }

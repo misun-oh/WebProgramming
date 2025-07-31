@@ -24,13 +24,7 @@
 
     <div id="container">
         <header class="p-3 text-bg-dark">
-        	<!-- 페이징 처리를 위한 공통폼 -->
-        	<form action="/member/list" name="searchForm">
-				pageNo : <input type="text" name="pageNo" value="${pageDto.pageNo }"><br>
-				amount : <input type="text" name="amount" value="${pageDto.amount }">
-			</form>
-        	
-            <!-- header -->
+        	<!-- header -->
             <div class="container"> 
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"> 
             <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"> 

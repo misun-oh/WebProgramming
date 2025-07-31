@@ -5,7 +5,7 @@
 
 
 <!-- 공통 - PageDto객체가 있으면 페이지 블럭을 출력 -->
-<h6>태그라이브러리를 사용하여 페이지블럭을 출력해봅시다</h6>
+
 	<!-- 태그라이브러리를 이용하여 출력시 el문법을 이용하여 null처리 없이 편리하게 이용할 수 있다! -->
 	<c:if test="${pageDto != null }">
 		<nav aria-label="...">
@@ -15,7 +15,7 @@
 		<!-- ()를 붙여서 메서드를 실행 -->
 		  <c:if test="${pageDto.isPrev()}">
 			  <li class="page-item">
-			    <span class="page-link" onclick="go(${pageDto.startNo-1})">이전</span>
+			    <a class="page-link" href="javascript:go(${pageDto.startNo-1})">이전</a>
 			  </li>
 		  </c:if>
 		<!-- var=변수명, begin=시작번호, end=끝번호 -->
@@ -36,7 +36,7 @@
 		
 	</c:if>
 	<c:if test="${pageDto == null }">
-		<h3>pageDto is null</h3>
+		<h6>pageDto is null - pageDto 데이터가 없으면 블럭을 그릴수 없어요</h6>
 	</c:if>
 	
 </body>

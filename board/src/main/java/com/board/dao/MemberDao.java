@@ -126,10 +126,15 @@ public class MemberDao {
 	 */
 	public List<MemberDto> getMemberListPageing(SearchDto searchDto) {
 		List<MemberDto> list = new ArrayList<MemberDto>();
+		String where = searchDto.getWhere();
+		
 		// 실행할 쿼리
 		// 페이징, 검색
 		String sql = "SELECT  * "
 					+ "	FROM member "
+					// 필터링 조건을 조건절 추가
+					+ "WHERE 1=1 "
+					+ where 
 					+ "ORDER BY regidate desc "
 					+ "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
 		
@@ -172,7 +177,7 @@ public class MemberDao {
 	public static void main(String[] args) {
 		MemberDao dao = new MemberDao();
 		
-		int totalCnt = dao.getTotalCnt();
+		int totalCnt = dao.getTotalCnt(new SearchDto());
 		System.out.println("총건수 : " + totalCnt);
 		
 		/*
@@ -343,9 +348,9 @@ public class MemberDao {
 		return res;
 	}
 
-	public int getTotalCnt() {
-		
-		String sql = "select count(*) from member";
+	public int getTotalCnt(SearchDto dto) {
+		String where = dto.getWhere();
+		String sql = "select count(*) from member where 1=1 " + where;
 		
 		ResultSet rs = null;
 		int totalCnt = 0;

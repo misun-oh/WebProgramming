@@ -12,11 +12,25 @@
 	}
 </style>
 <%@include file="/common/header.jsp" %>
+<script>
+	window.addEventListener('load', function(){
+		let searchField = document.querySelector('[name=searchField]');
+		searchField.innerHTML = `
+	          <option ${param.searchField eq "id" ? "selected" : ""} value="id">아이디</option>
+	          <option ${param.searchField eq "id/name" ? "selected" : ""} value="id/name">아이디 + 이름</option>
+	          <option ${param.searchField eq "name" ? "selected" : ""} value="name">내용</option>`;
+	    
+	    // DOM을 이용해서 출력 할수 있도록 수정해봅시다
+	    
+	});
+</script>
+
 
 <div id="wrap">
 
 	<h2>사용자 목록 조회</h2>
-	
+	<!-- search.jsp -->
+	<%@include file="/common/search.jsp" %>
 
 	<!-- 버튼 시작 -->
 	<div class="d-grid gap-2 d-md-flex justify-content-md-end">

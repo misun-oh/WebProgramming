@@ -22,16 +22,76 @@ window.addEventListener('load', ()=>{
 	        location.href= '/member/logout';
 	    });
     }
+    
+    // 검색 버튼을 클릭시 페이지번호를 초기화 하여 검색
+    let searchBtn = document.querySelector('#searchBtn');
+    if(searchBtn){
+		searchBtn.addEventListener('click', ()=>{
+	       	// searchForm의 pageNo를 초기화후 전송
+	       	// 검색버튼을 클릭 하면 1페이지 보여주기
+	       	go(1);
+	    });
+	    
+	}
+	
+	// 페이지당 게시물의수가 변경되면 searchForm submit
+	let amount = document.querySelector('[name="amount"]')
+	if(amount){
+		amount.addEventListener('change', ()=>{
+			console.log(amount.value);			
+			// searchForm.submit();
+			go();	
+		})
+	}
+	
+
 });
+
+// select 박스 옵션 목록을 초기화
+// 옵션목록을 매개변수로 전달 받아서 select박스에 옵션을 추가
+function settingSelect(searchField, optionList, selectedItem){
+	
+	// 리스트의 요소를 하나씩 꺼내서 반복문을 실행
+	optionList.forEach(function(item, index){
+		console.log(index, item);
+	    // option 태그 생성
+	    let option = document.createElement("option"); // <option> 요소 생성
+	    // 속성 추가
+	    option.value = item.value;
+	    option.textContent = item.text;
+	
+	    // 검색유지
+	    if(selectedItem == item.value){
+	    	option.selected = true;
+	    }
+	    
+	    searchField.appendChild(option);
+	})
+}
 
 // 페이지블럭의 버튼을 클릭 했을때 리스트 페이지를 요청
 // 페이지 번호, 페이지당게시물수를 파라메터로 넘겨주는 역할
-function go(pageNo){
-	console.log("pageNo : ", pageNo);
-	// pageNo를 매개변수로 넘어온 값으로 변경
-	document.querySelector("[name=pageNo]").value = pageNo;
+function go(pageNo, url){
 	
-	searchForm.action = url;
+	console.log("pageNo : ", pageNo);
+	
+	// 매개변수로 넘어온 pageNo가 있으면 pageNo를 세팅
+	// 없으면 기존값 그대로
+	// undefined : 매개변수로 넘어온 값이 없는경우 
+	if(pageNo){	// undefined, null, 0, ""  => false
+		// pageNo를 매개변수로 넘어온 값으로 변경
+		document.querySelector("[name=pageNo]").value = pageNo;
+	}
+	
+	// 페이지 마다 요청 URL이 다름
+	// /member/list, /board/list/ ...
+	if(url){
+		searchForm.action = url;
+	} else {
+		// 현재요청 경로를 url로 지정
+		searchForm.action = location.pathname;
+	}
+	
 	// form 전송
 	searchForm.submit();
 	

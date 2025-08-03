@@ -33,12 +33,14 @@ public class HikariCPTest {
 	@Description("hikariCP")
 	public void hikariTest() throws SQLException{
 		HikariConfig config = new HikariConfig();
-		config.setJdbcUrl("jdbc:oracle:thin:@localhost:1521:orcl");
+		//config.setJdbcUrl("jdbc:oracle:thin:@localhost:1521:orcl");
 		config.setUsername("library");
 		config.setPassword("1234");
 		config.addDataSourceProperty("cachePrepStmts", "true");
 		config.addDataSourceProperty("prepStmtCacheSize", "250");
 		config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+		config.setDriverClassName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
+		config.setJdbcUrl("jdbc:log4jdbc:oracle:thin:@localhost:1521:orcl");
 
 		HikariDataSource ds = new HikariDataSource(config);
 		

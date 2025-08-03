@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	😊 namespace : Mapper 인터페이스의 패키지명을 포함한 이름
+					ex) com.lib.mapper.BookMapper
+-->
+<mapper namespace="com.lib.mapper.BookMapper">
+  <!-- 하나의 태그에 하나의 SQL문장을 작성 
+  	태그의 id속성에는 인터페이스의 메서드의 이름이 작성
+  	
+  	인터페이스의 메서드가 호출 되면 연결된 쿼리가 실행되고 실행 결과가 반환
+  -->  
+  <select id="selectBookList" resultType="com.lib.vo.BookVO">
+    select * from Book where cat_code='C01'
+  </select>
+
+
+</mapper>

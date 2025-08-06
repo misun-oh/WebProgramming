@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import com.zaxxer.hikari.HikariConfig;
@@ -14,6 +15,8 @@ import dev.spring_prj.send.Sender;
 import dev.spring_prj.service.NotificationService;
 
 @Configuration
+@ComponentScan(basePackages = {"dev.spring_prj.service", "dev.spring_prj.send"})
+
 // mapper인터페이스의 패키지 위치
 @MapperScan(basePackages = "dev.spring_prj.mapper")
 public class AppConfig {

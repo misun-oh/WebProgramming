@@ -2,34 +2,41 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespage : 인터페이스의 패키지명을 포함한 인터페이스명 -->
 <mapper namespace="dev.spring_prj.mapper.BoardMapper">
-  <select id="get" >
-    select * from board where num=#{num}
-  </select>
-  
-  <select id="getPagedList">
-  	select * 
-  	from board 
-  	<where>
-	    <if test="searchField != '' and searchWord != ''">
-	      and ${searchField} = #{searchWord}
-	    </if>
-  	</where>
-  	ORDER BY num DESC 
-  	OFFSET (#{pageNo}-1)*#{amount} ROWS FETCH NEXT #{amount} ROWS ONLY
-  </select>
-  
-<select id="searchBoard">
-    SELECT * FROM board
-    <where>
-        <if test="searchWord != null and searchWord != ''">
-            <foreach item="field" collection="dto.searchField.split('/')"
-                     open="(" separator="or" close=")">
-                ${field} LIKE CONCAT('%', #{dto.searchWord}, '%')
-            </foreach>
-        </if>
-    </where>
-    ORDER BY num DESC
-    OFFSET (#{pageNo} - 1) * #{amount} ROWS FETCH NEXT #{amount} ROWS ONLY
-</select>
+	<!-- id : 인터페이스에 작성된 추상메서드명 -->
+  	<select id="getPagedList">
+  		<!-- 쿼리 작성시 "" ; 작성 금지!!  -->
+	  	select * 
+	  	from board 
+	  	ORDER BY num DESC 
+	  	OFFSET (#{search.pageNo} - 1) * #{search.amount} ROWS FETCH NEXT #{search.amount} ROWS ONLY
+  	</select>
+  	
+  	<!-- if문을 이용하여 조건절을 추가 -->
+  	<select id="getSearchedList">
+  		select * 
+	  	from board
+	  	 
+	  	<where>
+  			<!-- 검색어와 검색필드에 값이 입력된 경우
+  				null 체크 하지 않은 이유 : searchDto객체의 필드가 빈 문자열로 초기화 됨 -->
+  			<if test="searchField != '' and searchWord != ''">
+  				<!-- 검색필드에 값이 여러개인 경우
+  					ex)searchField =  title/content
+  					title/content like '%오류%'
+  					(title like ...
+  					or content like ...)
+  				-->
+  				<foreach collection="searchField.split('/')" item="field" open="(" close=")" separator="or">
+	  				${field} like '%'||#{searchWord}||'%'  					
+  				</foreach>
+  			</if>
+  		</where>
+  		
+	  	ORDER BY num DESC 
+	  	OFFSET (#{pageNo} - 1) * #{amount} ROWS FETCH NEXT #{amount} ROWS ONLY
+  		
+  	</select>
 </mapper>

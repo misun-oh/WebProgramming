@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+         http://www.springframework.org/schema/beans 
+         https://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context 
+         https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 기본생성자를 통해서 객체가 생성 -->
+	<bean id="sender" class="dev.spring_prj.send.EmailSender"></bean>
+	
+	<!-- 생성자 주입 : 생성자를 통해 필요한 객체를 세팅 
+					내부에서 사용할 객체를 외부로 부터 주입 -->
+	<bean id="notificationService" class="dev.spring_prj.service.NotificationService">
+		<!-- 생성자 주입 
+			ref : bean객체
+			value : 숫자, 문자
+		-->
+		<!-- 매개변수가 있는 생성자를 호출 -->
+		<constructor-arg ref="sender"></constructor-arg>
+	</bean>
+	
+</beans>

@@ -1,0 +1,23 @@
+package dev.db;
+
+import java.sql.SQLException;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+
+import com.zaxxer.hikari.HikariDataSource;
+
+import dev.spring_prj.config.AppConfig;
+
+// 스프링 설정파일(java)을 읽어서 IOC컨테이너를 준비
+@SpringJUnitConfig(AppConfig.class)
+public class HikariCPSpringTest {
+	@Autowired
+	HikariDataSource ds;
+	
+	@Test
+	public void test() throws SQLException {
+		System.out.println(ds.getConnection());
+	}
+}

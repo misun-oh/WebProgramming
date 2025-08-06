@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+         http://www.springframework.org/schema/beans 
+         https://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context 
+         https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Bean 등록 -->
+	<bean id="sender" class="dev.spring_prj.send.EmailSender" />
+	
+	<bean id="smsSender" class="dev.spring_prj.send.SmsSender" />
+
+	<!-- 생성자 주입 -->
+	<bean id="notificationService" class="dev.spring_prj.service.NotificationService">
+		<!-- 생성자 주입 
+			ref : 등록된 빈을 사용
+			value : 값 - 문자, 숫자
+		-->
+		<constructor-arg ref="sender"></constructor-arg>
+	</bean>
+</beans>

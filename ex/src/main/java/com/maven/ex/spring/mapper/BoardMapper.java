@@ -8,7 +8,7 @@ import com.maven.ex.spring.dto.BoardDto;
 
 
 public interface BoardMapper {
-	@Select("select * from book")
+	@Select("select * from board")
 	public List<BoardDto> getList();
 	
 	public BoardDto get();

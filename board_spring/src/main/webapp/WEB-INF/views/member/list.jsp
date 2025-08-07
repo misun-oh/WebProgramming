@@ -51,10 +51,10 @@
 			for(MemberDto member : list){
 		%>
 				
-				<tr class="link" onclick="location.href='/member/view.do?id=<%=member.getId() %>'">
-					<td><a href="/member/view.do?id=<%=member.getId() %>"><%=member.getId() %></a></td>
-					<td><%=member.getName() %></td>
-					<td><%=member.getRegidate() %></td>
+				<tr class="link" onclick="location.href='/member/view.do?id=<%=member.getUser_id() %>'">
+					<td><a href="/member/view.do?id=<%=member.getUser_id() %>"><%=member.getUser_id() %></a></td>
+					<td><%=member.getUsername() %></td>
+					<td><%=member.getCreated_at() %></td>
 				</tr>
 		<%
 			}

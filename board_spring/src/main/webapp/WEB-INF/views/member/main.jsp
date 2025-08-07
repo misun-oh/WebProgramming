@@ -8,7 +8,7 @@
 
 <div id="wrap">
 	member : ${member }
-
+	${user_id } 님 환영합니다.
 
 
 	<h1>로그인 성공!!</h1>

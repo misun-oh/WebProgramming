@@ -12,10 +12,9 @@ import com.zaxxer.hikari.HikariDataSource;
 
 
 @Configuration
-@ComponentScan(basePackages = {"dev.spring_prj.service", "dev.spring_prj.send"})
-
 // mapper인터페이스의 패키지 위치
-@MapperScan(basePackages = "dev.spring_prj.mapper")
+@MapperScan(basePackages = "dev.spring.board.mapper")
+@ComponentScan(basePackages = "dev.spring.board.service")
 public class AppConfig {
 
 	// HikariConfig config = new HikariConfig("hikari.properties");

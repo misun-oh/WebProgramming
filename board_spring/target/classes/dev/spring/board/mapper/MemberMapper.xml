@@ -2,32 +2,41 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-<!-- namespage : 인터페이스의 패키지명을 포함한 인터페이스명 -->
+
+<!-- 
+	0. Mapper는 interface로 만들어야 함
+	1. namespage : xml의 namespace는 인터페이스의 패키지명을 포함한 인터페이스명으로 지정
+	2. id속성 : 인터페이스의 추상메서드명
+	3. insert, update, delete 태그는 반환결과가 몇건이 처리 되었는지 숫자로 반환
+-->
 <mapper namespace="dev.spring.board.mapper.MemberMapper">
-	<select id="getMember">
-		SELECT
-		    M.USER_ID,
-		    M.USERNAME,
-		    M.EMAIL,
-		    M.LOGIN_FAIL_COUNT,
-		    M.ACCOUNT_LOCKED,
-		    R.ROLE_NAME
-		FROM
-		    MEMBER M
-		LEFT JOIN MEMBER_ROLES MR ON M.USER_ID = MR.USER_ID
-		LEFT JOIN ROLES R ON MR.ROLE_ID = R.ROLE_ID
-		WHERE
-		    M.USER_ID = #{user_id}
-		    AND M.ACCOUNT_LOCKED = 'N'
+	<!-- 
+		#{}, ${} 파라메터 삽입
+		객체 타입인 경우, 객체의 getter메서드 이용
+			- 파라메터 안넣은 경우(null을 넣은경우)
+			- 이름을 잘못쓴 경우
+			- getter메서드가 없는경우
+	-->
+	<select id="login">
+		select * 
+		from member
+		where user_id = #{member.user_id}
+		and password = #{member.password}
 	</select>
-	<select id="getRole">
-		SELECT
-		    R.ROLE_NAME
-		FROM
-		    MEMBER_ROLES MR
-		JOIN ROLES R ON MR.ROLE_ID = R.ROLE_ID
-		WHERE
-		    MR.USER_ID =  #{user_id}
+	
+	<update id="update_fail_count">
+		update member 
+		set LOGIN_FAIL_COUNT = LOGIN_FAIL_COUNT + 1 
+		    , ACCOUNT_LOCKED = case when login_fail_count >= 4 then 'Y' else 'N' end
+		where user_id = #{user_id}
+	</update>
+	
+	<select id="getList">
+		select * from member
 	</select>
-</mapper>
+	
+	<select id="checkId">
+		select count(*) from member where user_id = #{user_id}
+	</select>
+	
+</mapper> 

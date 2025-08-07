@@ -28,10 +28,11 @@
 %>
 
 
-<div class="red">${requestScope.msg}</div>
-<form name="loginForm" action="/login/loginAction" method="post">
+<div class="red">${msg}</div>
+<!-- method 주의 -->
+<form name="loginForm" action="/login/loginAction_dto" method="post">
 	id : <input type="text" name="user_id">
-	pw : <input type="text" name="user_pw"> 
+	pw : <input type="text" name="password"> 
 	<button>로그인</button>
 
 </form>

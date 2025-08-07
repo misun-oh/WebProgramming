@@ -28,7 +28,7 @@
 
         <!-- Versiones de las Dependencias -->
         <!-- Spring Framework -->
-        <org.springframework-version>5.2.7.RELEASE</org.springframework-version>
+        <org.springframework-version>5.3.30</org.springframework-version>
 
         <!-- Java Servlet API -->
         <javax.servlet-api-version>4.0.1</javax.servlet-api-version>

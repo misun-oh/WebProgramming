@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespage : 인터페이스의 패키지명을 포함한 인터페이스명 -->
+<mapper namespace="dev.spring.board.mapper.MemberMapper">
+	<select id="getMember">
+		SELECT
+		    M.USER_ID,
+		    M.USERNAME,
+		    M.EMAIL,
+		    M.LOGIN_FAIL_COUNT,
+		    M.ACCOUNT_LOCKED,
+		    R.ROLE_NAME
+		FROM
+		    MEMBER M
+		LEFT JOIN MEMBER_ROLES MR ON M.USER_ID = MR.USER_ID
+		LEFT JOIN ROLES R ON MR.ROLE_ID = R.ROLE_ID
+		WHERE
+		    M.USER_ID = #{user_id}
+		    AND M.ACCOUNT_LOCKED = 'N'
+	</select>
+	<select id="getRole">
+		SELECT
+		    R.ROLE_NAME
+		FROM
+		    MEMBER_ROLES MR
+		JOIN ROLES R ON MR.ROLE_ID = R.ROLE_ID
+		WHERE
+		    MR.USER_ID =  #{user_id}
+	</select>
+</mapper>

@@ -7,6 +7,9 @@
 
 
 <div id="wrap">
+	member : ${member }
+
+
 
 	<h1>로그인 성공!!</h1>
 	<%=session.getAttribute("user_id") %>
@@ -16,7 +19,7 @@
 	${user_id}님 환영합니다.
 	${aaaa }이런건 없어요!
 	
-	<a href="/member/login.jsp">로그인페이지로 이동 하기</a>
+	<a href="/member/login">로그인페이지로 이동 하기</a>
 	
 	<h2>사용자 목록 조회</h2>
 	
@@ -31,11 +34,7 @@
 			List<MemberDto> list = (List<MemberDto>)session.getAttribute("list");
 			for(MemberDto member : list){
 		%>
-				<tr>
-					<td><%=member.getId() %></td>
-					<td><%=member.getName() %></td>
-					<td><%=member.getRegidate() %></td>
-				</tr>
+				
 		<%
 			}
 		} else {

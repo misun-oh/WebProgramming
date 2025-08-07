@@ -29,7 +29,7 @@
 
 
 <div class="red">${requestScope.msg}</div>
-<form name="loginForm" action="/login/loginAction">
+<form name="loginForm" action="/login/loginAction" method="post">
 	id : <input type="text" name="user_id">
 	pw : <input type="text" name="user_pw"> 
 	<button>로그인</button>

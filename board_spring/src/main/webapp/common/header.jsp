@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,9 +17,9 @@
     ../ : 상위폴더 	- 상대경로
     ../css/style.css 
     -->
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/res/css/style.css">
     <!-- 외부 스크립트 파일을 불러오기 -->
-    <script src="/js/script.js"></script>
+    <script src="/res/js/script.js"></script>
 </head>
 <body>
 
@@ -33,7 +34,12 @@
             
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"> 
 	            <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li> 
-	            <li><a href="/member/list" class="nav-link px-2 text-white">사용자 목록</a></li> 
+	            
+	            <!-- 사용자 목록은 관리자 권한이 있는 사용자만 볼수 있어요 -->
+	            <c:if test='${member.hasRole("ADMIN") }'>
+	            	<li><a href="/member/list" class="nav-link px-2 text-white">사용자 목록</a></li> 
+	            </c:if>
+	            
 	            <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li> 
 	            <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li> 
 	            <li><a href="#" class="nav-link px-2 text-white">About</a></li> 

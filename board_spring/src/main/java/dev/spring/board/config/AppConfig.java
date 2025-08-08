@@ -16,7 +16,7 @@ import com.zaxxer.hikari.HikariDataSource;
 @MapperScan(basePackages = "dev.spring.board.mapper")
 @ComponentScan(basePackages = "dev.spring.board.service")
 public class AppConfig {
-
+    
 	// HikariConfig config = new HikariConfig("hikari.properties");
 	@Bean("hikariConfig")
 	public HikariConfig hikariConfig() {

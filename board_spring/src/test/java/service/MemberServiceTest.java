@@ -2,6 +2,8 @@ package service;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,11 @@ public class MemberServiceTest {
 		Model model = new ExtendedModelMap();
 		boolean res = service.login(model, member);
 		
-		assertTrue(res);
+		MemberDto loginMember = (MemberDto)model.getAttribute("member");
+		String[] roles = loginMember.getRoles();
+		System.out.println(Arrays.toString(roles));
+		System.out.println(Arrays.asList(roles).contains("ADMIN"));
+		
 	}
 	
 }

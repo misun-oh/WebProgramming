@@ -3,7 +3,9 @@ package mapper;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -23,6 +25,24 @@ public class MemberMapperTest {
 	
 	@Autowired
 	MemberMapper mapper;
+	
+	@Test
+	public void getRoles() {
+		MemberDto member = new MemberDto();
+		member.setUser_id("100");
+		String[] roles = mapper.getRoles(member);
+		// 리스트로 변환후 contains메서드를 이용해서 있는지 확인
+		boolean res = Arrays.asList(roles).contains("ADMIN");
+		
+		assertTrue(res);
+	}
+	
+	@Test
+	public void update_fail_count_reset() {
+		MemberDto member = new MemberDto();
+		member.setUser_id("100");
+		mapper.update_fail_count_reset(member);
+	}
 	
 	@Test
 	public void login(){
@@ -77,6 +97,12 @@ public class MemberMapperTest {
 		assertEquals(1, res);
 	}
 	
+	@Test
+	public void test() {
+		String[] strArr = {"a", "b", "c", "d"};
+		Boolean res = Arrays.asList(strArr).contains("a");
+		System.out.println(res);
+	}
 	
 	
 	

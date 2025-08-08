@@ -16,9 +16,9 @@
 	window.addEventListener('load', function(){
 		let searchField = document.querySelector('[name=searchField]');
 		searchField.innerHTML = `
-	          <option ${param.searchField eq "id" ? "selected" : ""} value="id">아이디</option>
-	          <option ${param.searchField eq "id/name" ? "selected" : ""} value="id/name">아이디 + 이름</option>
-	          <option ${param.searchField eq "name" ? "selected" : ""} value="name">내용</option>`;
+	          <option ${param.searchField eq "user_id" ? "selected" : ""} value="user_id">아이디</option>
+	          <option ${param.searchField eq "user_id/username" ? "selected" : ""} value="user_id/username">아이디 + 이름</option>
+	          <option ${param.searchField eq "username" ? "selected" : ""} value="username">내용</option>`;
 	    
 	    // DOM을 이용해서 출력 할수 있도록 수정해봅시다
 	    

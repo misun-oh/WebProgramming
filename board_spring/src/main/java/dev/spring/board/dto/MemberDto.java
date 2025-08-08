@@ -1,5 +1,7 @@
 package dev.spring.board.dto;
 
+import java.util.Arrays;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,5 +21,12 @@ public class MemberDto {
 	private int login_fail_count       ;
 	private String account_locked      ;
 	private String[] roles             ;
+	
+	// 권한이 있는지 확인하는 메서드
+	public boolean hasRole(String role) {
+		System.out.println("role : " + role);
+		System.out.println("roles : " + Arrays.toString(roles));
+		return Arrays.asList(roles).contains(role);
+	}
                                        
 }

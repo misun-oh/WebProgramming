@@ -1,8 +1,9 @@
+<%@page import="java.util.Arrays"%>
 <%@page import="dev.spring.board.dto.MemberDto"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="/common/header.jsp" %>
 
 
@@ -18,6 +19,7 @@
 	${sessionScope.user_id}님 환영합니다.
 	${user_id}님 환영합니다.
 	${aaaa }이런건 없어요!
+	member : ${member }
 	
 	<a href="/member/login">로그인페이지로 이동 하기</a>
 	

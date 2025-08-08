@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dev.spring.board.dto.MemberDto;
+import dev.spring.board.dto.SearchDto;
 import dev.spring.board.service.MemberService;
 
 @Controller
@@ -20,6 +21,13 @@ public class MemberController {
 	@Autowired
 	MemberService memberService;
 
+	// SearchDto : 페이징및 검색 파라메터 수집
+	@GetMapping("/member/list")
+	private void getList(Model model, SearchDto search){
+		// 리스트 조회 화면에 전달
+		memberService.getList(model, search);
+	}
+	
 	
 	//값이 하나인 경우 value= 생략가능 (기본값)
 	@GetMapping("/member/login")
@@ -50,16 +58,28 @@ public class MemberController {
 		
 		if(res) {
 			session.setAttribute("user_id", member.getUser_id());
+			// 세션에 멤버 객체 저장
 			session.setAttribute("member", model.getAttribute("member"));
+			
 			// 로그인 성공
 			// 세션에 저장 -> main으로 이동
-			return "redirect:member/main";
+			//return "redirect:member/main";
+			
+			// /로 시작 하지 않으면 기존 요청 경로를 포함 ✨주의✨가 필요
+			// member/main -> /login/member/main 
+			// /member/main -> /member/main
+			return "/member/main";
 		} else {
 			// 로그인 실패
 			// 메세지 처리 -> 로그인 페이지로 이동
-			// forward시 요청메서드가 달라지므로 오류가 발생 -> 요청메서드가 달라지는 경우 redirect처리
-			//return "forward:/member/login";
+			// ✨ forward시 요청메서드가 달라지므로 오류가 발생 -> 요청메서드가 달라지는 경우 redirect처리
+			
+			// session영역에 임시로 데이터를 보관
+			// 오류 메세지를 화면에 출력 하기 위해 저장
 			rttr.addFlashAttribute("msg", model.getAttribute("msg"));
+			// 사용자가 입력한 아이디를 화면에 출력하기 위해 저장
+			rttr.addFlashAttribute("user_id", member.getUser_id());
+			rttr.addAttribute("msg", model.getAttribute("msg"));
 			return "redirect:/member/login";
 		}
 		

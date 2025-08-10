@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespage : 인터페이스의 패키지명을 포함한 인터페이스명 -->
+<mapper namespace="dev.spring.board.mapper.UploadMapper">
+
+	<insert id="insertUpload">
+	  INSERT INTO UPLOAD_FILE
+	    (FILE_ID, BOARD_ID, BOARD_SEQ, ATTACH_IDX, ORIG_NAME, STORED_NAME, REL_PATH,
+	     CONTENT_TYPE, FILE_SIZE, UPLOADER_ID)
+	  VALUES
+	    (SEQ_UPLOAD_FILE.NEXTVAL, #{boardId}, #{boardSeq}, #{attachIdx}, #{origName}, #{storedName}, #{relPath},
+	     #{contentType}, #{fileSize}, #{userId})
+	</insert>
+	
+	<select id="selectUploadList">
+	  SELECT * FROM UPLOAD_FILE
+	   WHERE BOARD_ID = #{boardId} AND BOARD_SEQ = #{boardSeq}
+	   ORDER BY ATTACH_IDX, FILE_ID
+	</select>
+	
+	<select id="getList">
+		select * 
+		  from UPLOAD_FILE
+		<where>
+			<if test="searchField != '' and searchWord != ''">
+				<!-- 필드인 경우 문자열 처리를 하지 않기 위해서 ${}로 감싸 준다 
+				${searchField} like '%' || #{searchWord} || '%'
+				-->
+				<foreach collection="searchField.split('/')" item="field" open="(" close=")" separator="or">
+	  				${field} like '%'||#{searchWord}||'%'  					
+  				</foreach>
+			</if>
+		</where>
+		
+		ORDER BY created_at DESC 
+	  	<!-- OFFSET (#{pageNo} - 1) * #{amount} ROWS FETCH NEXT #{amount} ROWS ONLY -->
+	</select>
+	
+	<select id="getTotalCnt">
+		select count(*) from UPLOAD_FILE
+		<where>
+			<if test="searchField != '' and searchWord != ''">
+				<!-- 필드인 경우 문자열 처리를 하지 않기 위해서 ${}로 감싸 준다 
+				${searchField} like '%' || #{searchWord} || '%'
+				-->
+				<foreach collection="searchField.split('/')" item="field" open="(" close=")" separator="or">
+	  				${field} like '%'||#{searchWord}||'%'  					
+  				</foreach>
+			</if>
+		</where>
+	</select>
+</mapper>

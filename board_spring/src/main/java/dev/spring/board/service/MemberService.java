@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import dev.spring.board.HomeController;
+
 import dev.spring.board.dto.MemberDto;
 import dev.spring.board.dto.PageDto;
 import dev.spring.board.dto.SearchDto;
@@ -14,14 +14,8 @@ import dev.spring.board.mapper.MemberMapper;
 @Service
 public class MemberService {
 
-    private final HomeController homeController;
-	
 	@Autowired
 	MemberMapper memberMapper;
-
-    MemberService(HomeController homeController) {
-        this.homeController = homeController;
-    }
 	
 	// 수집된 파라메터를 이용하여 로그인 처리를 진행
 	// model : 데이터 저장 - 화면에 전달

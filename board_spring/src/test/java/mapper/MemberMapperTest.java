@@ -14,6 +14,8 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import dev.spring.board.config.AppConfig;
 import dev.spring.board.dto.MemberDto;
+import dev.spring.board.dto.PageDto;
+import dev.spring.board.dto.SearchDto;
 import dev.spring.board.mapper.MemberMapper;
 
 // 1. 설정파일에 문제가 있는경우 - 스프링컨테이너(IOC)컨테이너 생성 실패
@@ -84,7 +86,7 @@ public class MemberMapperTest {
 	
 	@Test
 	public void getList() {
-		List<MemberDto> list = mapper.getList();
+		List<MemberDto> list = mapper.getList(new SearchDto());
 		assertNotNull(list);
 	}
 	

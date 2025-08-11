@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- DispatcherServlet Context: Define la infraestructura de este Servlet -->
+
+    <!-- Habilita el modelo de programación a través de anotaciones (@Controller) para Spring MVC -->
+    <annotation-driven />
+    
+    <!-- 컨트롤러를 거치지 않고 서비스 하는 리소스들을 등록 해놓는 공간
+    	정적리소스
+    	CSS, JS, IMG
+     -->
+    <resources mapping="/res/**" location="/resources/" />
+
+    <!-- Resuelve las vistas seleccionadas por @Controllers -->
+    <!-- jsp의 주소 -->
+    <beans:bean id="viewResolver"
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- /WEB-INF/ 직접 접근 할 수 없다
+        		서블릿을 통해서만 접근 할 수 있다 = 컨트롤러에 등록된 url mapping으로만 접근 
+        -->
+        <beans:property name="prefix" value="/WEB-INF/views/" />
+        <beans:property name="suffix" value=".jsp" />
+    </beans:bean>
+
+	<!-- 패키지의 어노테이션을 읽어서 Bean으로 등록   -->
+    <context:component-scan base-package="dev.fileupload" />
+
+</beans:beans>

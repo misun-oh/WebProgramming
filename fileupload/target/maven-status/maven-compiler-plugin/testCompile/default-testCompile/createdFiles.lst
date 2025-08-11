@@ -1,0 +1,7 @@
+mapper\MemberMapperTest.class
+db\HikariCPTEST.class
+mapper\BoardMapperTest.class
+db\OjdbcTest.class
+service\MemberServiceTest.class
+mapper\UploadMapperTest.class
+db\HikariCPSpringTest.class

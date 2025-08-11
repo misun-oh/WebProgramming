@@ -1,0 +1,59 @@
+package service;
+
+import java.util.Arrays;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.springframework.ui.ExtendedModelMap;
+import org.springframework.ui.Model;
+
+import dev.fileupload.config.AppConfig;
+import dev.fileupload.dto.MemberDto;
+import dev.fileupload.service.MemberService;
+
+@SpringJUnitConfig(AppConfig.class)
+public class MemberServiceTest {
+	
+	@Autowired
+	MemberService service;
+	static MemberDto member;
+	
+	// 초기화
+	//@BeforeEach
+	@BeforeAll
+	public static void init(){
+		member = new MemberDto();
+		member.setUser_id(100+"");
+		member.setPassword(1234+"");
+	}
+	
+	@Test
+	public void login() {
+		// model객체 수동 생성
+		Model model = new ExtendedModelMap();
+		boolean res = service.login(model, member);
+		
+		MemberDto loginMember = (MemberDto)model.getAttribute("member");
+		String[] roles = loginMember.getRoles();
+		System.out.println(Arrays.toString(roles));
+		System.out.println(Arrays.asList(roles).contains("ADMIN"));
+		
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

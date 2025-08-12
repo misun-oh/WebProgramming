@@ -33,7 +33,22 @@ public class MemberController {
 	@Autowired
 	MemberService memberService;
 
-
+	@GetMapping("/member/checkId")
+	@ResponseBody
+	private Map<String, Object> checkId(MemberDto member) {
+		Map<String, Object> map;
+		System.out.println("member : " + member);
+		boolean res = memberService.checkId(member);
+		
+		if(res) {
+			map = Map.of("res", res);
+		} else {
+			map = Map.of("res", res, "msg", "사용중인 아이디 입니다."); 
+		}
+		
+		return map;
+	}
+	
 	@GetMapping("/member/register")
 	private void register() {
 		
@@ -151,21 +166,30 @@ public class MemberController {
 	// 계정 잠금/해제 처리를 fetch를 이용해서 처리
 	@GetMapping("/member/accountlock/{user_id}/{account_locked}")
 	@ResponseBody
-	public Map<String, Boolean> accountlock_fetch(Model model, HttpSession session, MemberDto member){
-		if(session.getAttribute("member")!=null) {
+	public Map<String, Object> accountlock_fetch(Model model, HttpSession session, MemberDto member){
+		Map<String, Object> map;
+		// 로그인한 사용자의 어드민 권한이 있는경우에만 호출 할 수 있도록
+		if(session.getAttribute("member")!=null) {	// 로그인 체크
 			MemberDto loginMember = (MemberDto)session.getAttribute("member");
-			if(loginMember.hasRole("ADMIN")) {				
+			if(loginMember.hasRole("ADMIN")) {		// ADMIN 권한체크
 				boolean res = memberService.updateAccountLock(model, member);
-				// 계정잠금의 결과를 map에 담아서 화면에 전달
-				Map<String, Boolean> map = Map.of("res", res);
+				if(res) {							// 서비스 실행 결과 체크
+					// 계정잠금의 결과를 map에 담아서 화면에 전달
+					map = Map.of("res", res);					
+				} else {
+					map = Map.of("res", res, 
+								"msg", "계정 잠금/해제중 예외 사항이 발생 하였습니다.",
+								"title", "계정 잠금/해제");
+				}
 				return map;
 			} 
 		}
 		
 		// 권한이 없거나 계정잠금에 실패한 경우
-		Map<String, Boolean> map = Map.of("res", false);
+		map = Map.of("res", false, 
+					"msg", "계정 잠금/해제 실패 - 권한 없음",
+					"title", "계정 잠금/해제");
 		return map;
-		
 		
 	}
 	

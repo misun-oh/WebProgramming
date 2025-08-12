@@ -52,10 +52,12 @@
 				  .then(result => {
 					  	// 서버의 통신결과
 				    	console.log(result.res);
+					  	
 					  	if(!result.res){
 					  		// 요청 실패
 					  		// 메세지 처리
-					  		showModal("계정 잠금/해제", "계정 잠금/해제 처리중 예외사항이 발생 하였습니다.");
+					  		//showModal("계정 잠금/해제", "계정 잠금/해제 처리중 예외사항이 발생 하였습니다.");
+					  		showToast(result.title, result.msg);
 					  		// 버튼처리
 					  		btn.checked = btn.checked ? false : true; 
 					  	}

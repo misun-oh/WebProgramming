@@ -17,6 +17,17 @@ public class MemberService {
 	@Autowired
 	MemberMapper memberMapper;
 	
+	/*
+	 * 등록가능한 아이디이면 true를 반환
+	 */
+	public boolean checkId(MemberDto member) {
+		// 아이디가 member테이블에 등록되어 있는지 확인
+		int res = memberMapper.checkId(member);
+		
+		// 등록 가능한 상태(res=0)이면 true, false
+		return res > 0 ? false : true;
+	}
+	
 	public boolean updateAccountLock(Model model, MemberDto member) {
 		// 계정잠금/해제 처리
 		int res = memberMapper.updateAccountLock(member);

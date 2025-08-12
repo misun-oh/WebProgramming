@@ -29,14 +29,11 @@
     </div>
     
     <!-- 토스트 -->
-    <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
-
+	
 	<div class="toast-container position-fixed bottom-0 end-0 p-3">
 	  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-	    <div class="toast-header">
-	      ❗
+	    <div class="toast-header">⭕ 
 	      <strong id="toastHeader" class="me-auto">Bootstrap</strong>
-	      
 	      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
 	    </div>
 	    <div id="toastBody" class="toast-body">
@@ -52,21 +49,22 @@
 
     function showModal(title, msg){
         // 모달창 세팅
-        modalLabel.innerText = title;
+        modalLabel.innerHTML = title;
         modalBody.innerHTML = msg;
         modalSaveBtn.style.display = 'none';
         // 모달창 화면에 출력
         myModal.show();
     }
     
-    function showToast(title, msg){   
+    function showToast(title, msg){
     	toastHeader.innerText = title;
     	toastBody.innerText = msg;
 	    const toastLiveExample = document.getElementById('liveToast')
-		const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-	    toastBootstrap.show();
+	    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+	    toastBootstrap.show()
     }
-     
+  
+    
     
 </script>
 </body>

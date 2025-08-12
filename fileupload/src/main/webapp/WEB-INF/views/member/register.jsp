@@ -56,6 +56,19 @@
 	<label for="user_id">아이디</label>
 	</p>
 		
+	<div class="row g-2">
+	<div class="col-md">
+	  <div class="form-floating">
+	    <input type="email" class="form-control" id="floatingInputGrid" placeholder="name@example.com" value="mdo@example.com">
+	    <label for="floatingInputGrid">아이디</label>
+	  </div>
+	</div>
+	
+	  
+	    <button class="btn btn-primary">아이디 중복체크</button>
+	  
+	
+	</div>
 	id : <input type="text" name="id"> 
 	<br>pw : <input type="text" name="pass">
 	<br>pw 확인 : <input type="text" id="pass_check">

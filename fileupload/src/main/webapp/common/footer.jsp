@@ -27,6 +27,23 @@
         </div>
     </div>
     </div>
+    
+    <!-- 토스트 -->
+    <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
+
+	<div class="toast-container position-fixed bottom-0 end-0 p-3">
+	  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+	    <div class="toast-header">
+	      ❗
+	      <strong id="toastHeader" class="me-auto">Bootstrap</strong>
+	      
+	      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+	    </div>
+	    <div id="toastBody" class="toast-body">
+	      Hello, world! This is a toast message.
+	    </div>
+	  </div>
+	</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>    
 <script>
@@ -41,6 +58,16 @@
         // 모달창 화면에 출력
         myModal.show();
     }
+    
+    function showToast(title, msg){   
+    	toastHeader.innerText = title;
+    	toastBody.innerText = msg;
+	    const toastLiveExample = document.getElementById('liveToast')
+		const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+	    toastBootstrap.show();
+    }
+     
+    
 </script>
 </body>
 </html>

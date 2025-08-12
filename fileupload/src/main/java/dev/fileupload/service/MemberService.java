@@ -17,6 +17,18 @@ public class MemberService {
 	@Autowired
 	MemberMapper memberMapper;
 	
+	public boolean updateAccountLock(Model model, MemberDto member) {
+		// 계정잠금/해제 처리
+		int res = memberMapper.updateAccountLock(member);
+		if(res > 0) {
+			return true;
+		} else {
+			model.addAttribute("msg", "계정 잠금/해제 처리중 예외가 발생 하였습니다.");
+			return false;
+		}
+		
+	}
+	
 	// 수집된 파라메터를 이용하여 로그인 처리를 진행
 	// model : 데이터 저장 - 화면에 전달
 	// memberDto : 요청파라메터 

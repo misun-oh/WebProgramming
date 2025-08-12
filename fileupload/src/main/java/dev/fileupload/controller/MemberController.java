@@ -1,5 +1,8 @@
 package dev.fileupload.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dev.fileupload.dto.MemberDto;
@@ -123,6 +127,63 @@ public class MemberController {
 		System.out.println("id : " + user_id);
 		// TODO Auto-generated method stub
 		return "member/main";
+	}
+	
+	// 계정잠금/해제 처리
+	//@GetMapping("/member/accountlock/{user_id}/{account_locked}")
+	public String accountlock(Model model, MemberDto member){
+		// 파라메터 수집 확인
+		System.out.println("member : " + member);
+		boolean res = memberService.updateAccountLock(model, member);
+		
+		if(res) {
+			// 성공
+			return "redirect:/member/list";
+			
+		} else {
+			// 실패 -> msgbox : msg를 모달로 띄워주고 뒤로가기또는 url로 이동
+			// 메세지 처리후 뒤로가기
+			return "/common/msgbox";
+		}
+		// 리스트를 다시 조회 해서 화면에 데이터를 전달할 수 있도록 처리
+	}
+	
+	// 계정 잠금/해제 처리를 fetch를 이용해서 처리
+	@GetMapping("/member/accountlock/{user_id}/{account_locked}")
+	@ResponseBody
+	public Map<String, Boolean> accountlock_fetch(Model model, HttpSession session, MemberDto member){
+		if(session.getAttribute("member")!=null) {
+			MemberDto loginMember = (MemberDto)session.getAttribute("member");
+			if(loginMember.hasRole("ADMIN")) {				
+				boolean res = memberService.updateAccountLock(model, member);
+				// 계정잠금의 결과를 map에 담아서 화면에 전달
+				Map<String, Boolean> map = Map.of("res", res);
+				return map;
+			} 
+		}
+		
+		// 권한이 없거나 계정잠금에 실패한 경우
+		Map<String, Boolean> map = Map.of("res", false);
+		return map;
+		
+		
+	}
+	
+	
+	
+	@GetMapping("/fetch")
+	@ResponseBody // 화면이 아닌 객체를 Json형식 파일(문자열)로 전달 
+	private Map<String, String> fetch() {
+		//return new MemberDto();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("name", "오미자");
+		map.put("age", "20");
+		
+		// 맵을 간단하게 생성하는 방법 - 불변, 10개까지
+		Map<String, String> mapOf = Map.of("name", "오미자"
+											, "age", "25");
+		
+		return mapOf;
 	}
 	
 	

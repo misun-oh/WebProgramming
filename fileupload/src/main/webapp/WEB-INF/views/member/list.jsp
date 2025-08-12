@@ -27,14 +27,46 @@
 		account_locked_btn_list.forEach(function(btn, index){
 			
 			btn.addEventListener('click', function(){
+				// 버튼 비활성화 처리 - 사용자가 연속해서 버튼을 클릭할수 없도록 처리
+				btn.disabled = true;
+
+				// 서버 처리 
 				// checked속성이 있으면 true, 없으면 false를 반환
 				// 사용자계정 잠금/잠금해제
 				// 서버 호출 -> 아이디, 체크상태를 서버에 전달 -> account_lock 업데이트 처리
 				console.log('btn.checked', btn.checked);
 				console.log('btn.data-user-id', btn.dataset.userId);
-				// 버튼 비활성화 처리
-				btn.disabled = true;
-				// 서버 전송
+				
+				let user_id = btn.dataset.userId;
+				let account_locked = btn.checked ? 'Y' : 'N';
+				
+				// 자바스크립트에서 백팃을 이용하면 변수처리를 쉽게 할 수 있다
+				// el표현식에서 처리되지 않도록 하는 처리가 필요!!!!!!!!!!!!
+				let url = `/member/accountlock/\${user_id}/\${account_locked}`;
+				//let url = '/member/accountlock/' + user_id + '/' + account_locked;
+				console.log('url', url);
+				// 서버 전송(요청)
+				//location.href= url; // 화면 갱신 -> 비동기방식으로 처리
+				fetch(url) // 요청URL
+				  .then(response => response.json())	// 요청결과를 object로 변환
+				  .then(result => {
+					  	// 서버의 통신결과
+				    	console.log(result.res);
+					  	if(!result.res){
+					  		// 요청 실패
+					  		// 메세지 처리
+					  		showModal("계정 잠금/해제", "계정 잠금/해제 처리중 예외사항이 발생 하였습니다.");
+					  		// 버튼처리
+					  		btn.checked = btn.checked ? false : true; 
+					  	}
+					  	// 버튼 잠금 해제
+						btn.disabled = false;
+				  })
+				  .catch(err=>{
+					  	// 네트워크 장애, 매핑된 url이 없는경우
+						console.log('err', err);  
+				  });
+				
 			})
 		});
 	});
@@ -62,7 +94,7 @@
 			<th>아이디</th>
 			<th>이름</th>
 			<th>등록일</th>
-			<th>잠금</th>
+			<th>계정잠금/잠금해제</th>
 		</tr>
 		<%
 		if(request.getAttribute("list") != null) {
@@ -77,7 +109,7 @@
 					<td>
 						<!-- 스위치 -->
 						<div class="form-check form-switch">
-							Account_locked : <%=member.getAccount_locked() %>
+							
 							<!-- getAccount_locked이 Y이면 체크(chekced속성추가) 아니면 체크안함 -->
 							<input class="form-check-input" type="checkbox" role="switch" 
 									<%="Y".equals(member.getAccount_locked())? "checked" : "" %>

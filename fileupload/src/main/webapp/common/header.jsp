@@ -38,7 +38,7 @@ ${member }
 	            
 	            <!-- 사용자 목록은 관리자 권한이 있는 사용자만 볼수 있어요 -->
 	            <!-- $ { } : 내장객체의 영역에 저장된 데이터를 출력 -->
-	            <c:if test='${member.hasRole("ADMIN") }'>
+	            <c:if test='${sessionScope.member.hasRole("ADMIN") }'>
 	            	<li><a href="/member/list" class="nav-link px-2 text-white">사용자 목록</a></li> 
 	            </c:if>
 	            

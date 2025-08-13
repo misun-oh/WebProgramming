@@ -105,8 +105,8 @@
 		%>
 				
 				<tr class="link" >
-					<td><a href="/member/view.do?id=<%=member.getUser_id() %>"><%=member.getUser_id() %></a></td>
-					<td onclick="location.href='/member/view.do?id=<%=member.getUser_id() %>'"><%=member.getUsername() %></td>
+					<td><a href="/member/view/<%=member.getUser_id() %>"><%=member.getUser_id() %></a></td>
+					<td onclick="location.href='/member/view/<%=member.getUser_id() %>'"><%=member.getUsername() %></td>
 					<td><%=member.getCreated_at() %></td>
 					<td>
 						<!-- 스위치 -->

@@ -10,6 +10,23 @@
 	3. insert, update, delete 태그는 반환결과가 몇건이 처리 되었는지 숫자로 반환
 -->
 <mapper namespace="dev.fileupload.mapper.MemberMapper">
+
+	<!-- 권한 추가 -->
+	<insert id="insertRole">
+		INSERT INTO MEMBER_ROLES VALUES (#{user_id}, 2, sysdate)
+	</insert>
+	
+	<!-- 사용자 등록 -->
+	<insert id="insertMember">
+		INSERT INTO MEMBER (
+		    USER_ID, USERNAME, PASSWORD, EMAIL, PHONE_NUMBER,
+		    PROFILE_IMAGE_URL, CREATED_AT, LAST_LOGIN_AT, LOGIN_FAIL_COUNT, ACCOUNT_LOCKED
+		) VALUES (
+		    #{user_id}, #{username}, #{password}, #{email}, #{phone_number},
+		    #{profile_image_url}, sysdate, null, 0, 'N'
+		)
+	</insert>
+	
 	<!-- 
 		#{}, ${} 파라메터 삽입
 		객체 타입인 경우, 객체의 getter메서드 이용

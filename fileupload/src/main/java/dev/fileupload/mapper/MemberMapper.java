@@ -3,6 +3,7 @@ package dev.fileupload.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import dev.fileupload.dto.MemberDto;
@@ -11,7 +12,12 @@ import dev.fileupload.dto.SearchDto;
 // ✨ Mapper는 interface ✨
 public interface MemberMapper {
 	
-
+	@Select("select * from member m where m.user_id=#{user_id}")
+	MemberDto getMember(MemberDto member);
+	
+	int insertRole(MemberDto member);
+	
+	int insertMember(MemberDto member);
 		
 	// 파라메터를 한개만 넣을때는 이름을 명시하지 않아도 됨
 	// 여러개 넣을때는 어노테이션을 붙여 주어야 해요!!  

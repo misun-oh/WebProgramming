@@ -17,6 +17,26 @@ public class MemberService {
 	@Autowired
 	MemberMapper memberMapper;
 	
+	public boolean insertMember(MemberDto member){
+		int res = 0;
+		
+		try {
+			// 사용자 등록 입력
+			res = memberMapper.insertMember(member);
+			
+			if(res > 0) {
+				// 사용자 권한 등록
+				res = memberMapper.insertRole(member);				
+			}
+						
+		} catch (Exception e) {
+			e.printStackTrace();	
+		}
+		
+		return res > 0 ? true : false;
+		
+	}
+	
 	/*
 	 * 등록가능한 아이디이면 true를 반환
 	 */
@@ -88,5 +108,22 @@ public class MemberService {
 		model.addAttribute("list", list);
 		// 페이지 블럭 출력
 		model.addAttribute("pageDto", pageDto);
+	}
+
+	public boolean getMember(Model model, MemberDto member) {
+		// 사용자 조회
+		member = memberMapper.getMember(member);
+		if(member != null) {
+			// 권한 조회 - 배열
+			String[] roles = memberMapper.getRoles(member);
+			member.setRoles(roles);
+			
+			// 화면에 보여줄 데이터를 내장객체의 영역에 저장
+			model.addAttribute("member", member);
+			return true;
+		} else {
+			model.addAttribute("msg", "아이디를 확인해주세요.");
+			return false;			
+		}
 	}
 }

@@ -10,6 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberDto {
+    
+	/*
+	 * 필드의 경우 타입의 초기값 (null, 0, 0.0, false)
+	 */
 	private String user_id             ;
 	private String username            ;
 	private String password            ;
@@ -29,5 +33,5 @@ public class MemberDto {
 		// 리스트로 변환후 contains메서드를 이용해서 권한이 있는지 확인
 		return Arrays.asList(roles).contains(role);
 	}
-                                       
+ 
 }

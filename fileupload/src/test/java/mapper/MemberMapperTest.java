@@ -16,6 +16,7 @@ import dev.fileupload.config.AppConfig;
 import dev.fileupload.dto.MemberDto;
 import dev.fileupload.dto.SearchDto;
 import dev.fileupload.mapper.MemberMapper;
+import lombok.extern.log4j.Log4j2;
 
 
 // 1. 설정파일에 문제가 있는경우 - 스프링컨테이너(IOC)컨테이너 생성 실패
@@ -23,10 +24,38 @@ import dev.fileupload.mapper.MemberMapper;
 // 3. public void 가 아닌경우
 // 4. test 경로가 아닌경우 (main에 테스트 코드 작성시 실행이 안됨!)
 @SpringJUnitConfig(AppConfig.class)
+@Log4j2
 public class MemberMapperTest {
 	
 	@Autowired
 	MemberMapper mapper;
+	
+	
+	@Test
+	public void insertRole() {
+		MemberDto member = new MemberDto();
+		member.setUser_id("1111");
+		mapper.insertRole(member);
+	}
+	
+	@Test
+	public void insertMember() {
+		
+		// 데이터 준비
+		MemberDto member = new MemberDto();
+		member.setUser_id("1000");
+		member.setPassword("1234");
+		member.setUsername("오미자2");
+		member.setEmail("a@b.c");
+		member.setPhone_number("01000001111");
+		log.info(member);
+		System.out.println(member);
+		
+		// DB 입력
+		int res = mapper.insertMember(member);
+		
+		assertEquals(1, res);
+	}
 	
 	
 	@Test

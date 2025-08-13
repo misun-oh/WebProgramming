@@ -49,10 +49,10 @@
 <!-- main 영역 -->
 <div id="wrap">
 <h2>사용자 등록</h2>
-<form>
+<form action="/member/register_action" method="post">
 		
 	<div class="input-group mb-3 mt-4">
-		<input type="text" class="form-control" placeholder="아이디" id="user_id">
+		<input type="text" class="form-control" placeholder="아이디" id="user_id" name="user_id">
 		<button class="btn btn-outline-secondary" type="button" id="checkIdBtn">중복체크</button>
 	</div>
 	
@@ -63,17 +63,44 @@
 		<input type="text" class="form-control" placeholder="비밀번호 확인" aria-label="Recipient's username" aria-describedby="button-addon2">
 	</div>
 	<div class="input-group mb-3">
-		<input type="text" class="form-control" placeholder="이름" aria-label="Recipient's username" aria-describedby="button-addon2">
+		<input type="text" class="form-control" placeholder="이름" aria-label="Recipient's username" aria-describedby="button-addon2" name="username">
 	</div>
 	<div class="input-group mb-3">
-		<input type="text" class="form-control" placeholder="email" aria-label="Recipient's username" aria-describedby="button-addon2">
+		<input type="text" class="form-control" placeholder="email" aria-label="Recipient's username" aria-describedby="button-addon2" name="email">
 	</div>
 	<div class="input-group mb-3">
-		<input type="text" class="form-control" placeholder="전화번호" aria-label="Recipient's username" aria-describedby="button-addon2">
+		<input type="text" class="form-control" placeholder="전화번호" aria-label="Recipient's username" aria-describedby="button-addon2" name="phone_number">
 	</div>
 	<div class="input-group mb-3">
-		<input type="file" class="form-control" id="inputGroupFile01">
+		<input type="file" class="form-control" id="inputGroupFile01" name="profile_image_url">
 	</div>
+	
+	<c:if test='${member.hasRole("ADMIN")}'>
+	
+		<hr>
+		<div class="input-group mb-3">
+			권한
+		</div>
+		<div class="input-group mb-3">
+			<div class="form-check form-check-inline">
+			  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="roles" value="1"> 
+			  <label class="form-check-label" for="inlineCheckbox1">시스템관리자</label>
+			</div>
+			<div class="form-check form-check-inline">
+			  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="roles" value="2"> 
+			  <label class="form-check-label" for="inlineCheckbox2">사용자</label>
+			</div>
+			<div class="form-check form-check-inline">
+			  <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="roles" value="3">
+			  <label class="form-check-label" for="inlineCheckbox3">파트너</label>
+			</div>
+			<div class="form-check form-check-inline">
+			  <input class="form-check-input" type="checkbox" id="inlineCheckbox4" name="roles" value="4">
+			  <label class="form-check-label" for="inlineCheckbox4">등록권한</label>
+			</div>
+		</div>
+	
+	</c:if>
 	<div class="input-group mb-3 justify-content-md-center">
 		<!-- 저장버튼을 클릭 하면 /member/register_action -> 컨트롤러에서 데이터 수집 -->
 		<button type="submit" class="btn btn-primary">저장</button>

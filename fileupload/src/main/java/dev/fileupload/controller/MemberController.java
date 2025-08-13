@@ -33,6 +33,20 @@ public class MemberController {
 	@Autowired
 	MemberService memberService;
 
+	@GetMapping("member/view/{user_id}")
+	private String getView(Model model, MemberDto member) {
+		System.out.println(member);
+		// member객체를 조회 해서 내장객체의 영역에 담기!
+		// 만약 사용자 정보가 조회가 안된다면 존재하지 않는 사용자입니다. 메세지 처리후 뒤로가기
+		boolean res = memberService.getMember(model, member);
+		if(res) {
+			return "/member/view";			
+		} else {
+			return "/common/msgbox";
+		}
+	}
+	
+	
 	@GetMapping("/member/checkId")
 	@ResponseBody
 	private Map<String, Object> checkId(MemberDto member) {
@@ -49,8 +63,34 @@ public class MemberController {
 		return map;
 	}
 	
+	// 등록 화면 이동
 	@GetMapping("/member/register")
 	private void register() {
+		
+	}
+
+	// 등록 처리
+	@PostMapping("/member/register_action")
+	private String register_action(Model model, MemberDto member) {
+		// 파라메터 수집 확인
+		// null : 필드와 일치하는 name속성이 없는경우
+		// '' : 입력을 안한것
+		System.out.println("member : " + member);
+		
+		// 데이터베이스에 등록
+		boolean res = memberService.insertMember(member);
+		if(res) {
+			// void : /member/register_action.jsp
+			// String : 보여주고 싶은 화면의 경로
+			// 등록성공 - 메세지 처리후 리스트로 이동
+			model.addAttribute("msg", "등록 되었습니다.");
+			model.addAttribute("url", "/member/list");
+
+		} else {
+			// 등록실패 - 메세지 처리후 이전페이지
+			model.addAttribute("msg", "등록중 예외가 발생하였습니다.");
+		}
+		return "/common/msgbox";
 		
 	}
 	

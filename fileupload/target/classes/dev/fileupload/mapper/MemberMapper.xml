@@ -11,6 +11,13 @@
 -->
 <mapper namespace="dev.fileupload.mapper.MemberMapper">
 
+	<!-- 업데이트 -->
+	<update id="updateMember">
+		UPDATE 	MEMBER 
+		SET		PASSWORD=#{password}, EMAIL=#{email}, PHONE_NUMBER=#{phone_number} 
+		WHERE 	USER_ID=#{user_id}
+	</update>
+	
 	<!-- 권한 추가 -->
 	<insert id="insertRole">
 		INSERT INTO MEMBER_ROLES VALUES (#{user_id}, 2, sysdate)

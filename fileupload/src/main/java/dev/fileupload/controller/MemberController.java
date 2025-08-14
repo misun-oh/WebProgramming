@@ -33,7 +33,27 @@ public class MemberController {
 	@Autowired
 	MemberService memberService;
 
-	@GetMapping("member/view/{user_id}")
+	@PostMapping("/member/edit")
+	private String edit(Model model, MemberDto member) {
+		System.out.println("=========== member : " + member);
+		
+		// 사용자 정보 수정
+		boolean res = memberService.updateMember(model, member);
+		
+		return "/common/msgbox";
+	}
+	@GetMapping("/member/edit/{user_id}")
+	private String getEdit(Model model, MemberDto member) {
+		System.out.println("=========== member : " + member);
+		boolean res = memberService.getMember(model, member);
+		if(res) {
+			return "/member/edit";			
+		} else {
+			return "/common/msgbox";
+		}
+	}
+	
+	@GetMapping("/member/view/{user_id}")
 	private String getView(Model model, MemberDto member) {
 		System.out.println(member);
 		// member객체를 조회 해서 내장객체의 영역에 담기!

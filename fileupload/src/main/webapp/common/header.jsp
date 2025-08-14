@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
-${member }
+${sessionScope.member }
 <head>
 	<link rel="icon" href="/favicon.ico">
 
@@ -50,7 +50,7 @@ ${member }
             	<input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search"> </form> <div class="text-end">
 			<%
 				// 로그인 되었는지 확인
-				if(session.getAttribute("user_id")!=null ) {
+				if(session.getAttribute("member") != null ) {
 			%>
                 <button id="logoutBtn" type="button" class="btn btn-outline-light me-2">로그아웃</button>
             <%

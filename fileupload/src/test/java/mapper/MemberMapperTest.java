@@ -30,6 +30,22 @@ public class MemberMapperTest {
 	@Autowired
 	MemberMapper mapper;
 	
+	@Test
+	public void addRole() {
+		int res = mapper.addRole("1000", "1");
+		assertEquals(1, res);
+	}
+	
+	@Test
+	public void updateMember() {
+		MemberDto member = new MemberDto();
+		member.setUser_id("1000");
+		member.setEmail("a@b.c");
+		member.setPassword("1234");
+		member.setPhone_number("01022223333");
+		int res = mapper.updateMember(member);
+		assertEquals(1, res);
+	}
 	
 	@Test
 	public void insertRole() {

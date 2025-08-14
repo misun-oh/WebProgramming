@@ -2,6 +2,8 @@ package dev.fileupload.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -11,6 +13,11 @@ import dev.fileupload.dto.SearchDto;
 
 // ✨ Mapper는 interface ✨
 public interface MemberMapper {
+	
+	@Delete("delete member_roles where user_id = #{user_id}")
+	int deleteRoleAll(MemberDto member);
+	
+	int updateMember(MemberDto member);
 	
 	@Select("select * from member m where m.user_id=#{user_id}")
 	MemberDto getMember(MemberDto member);
@@ -42,10 +49,15 @@ public interface MemberMapper {
 	int totalCnt(SearchDto search);
 	
 	int updateAccountLock(MemberDto member);
+
+	@Insert("insert into member_roles values (#{user_id}, #{role}, sysdate)")
+	int addRole(@Param("user_id") String user_id, @Param("role") String role);
+
 	// 아이디 찾기 - 이름, 이메일을 받아서 아이디를 알려주는 서비스
 	/* 비밀번호 초기화 - 1) 임시시밀번호를 생성해서 이메일로 전송
 					 2) 비밀번호 초기화 - 인증 -> 비밀번호 초기화
 									이메일로 비밀번호 수정 URL을 전송 -> 비밀번호 초기화
 	*/
 	// 인터페이스 - 추상 메서드 
+
 }

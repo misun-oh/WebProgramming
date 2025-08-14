@@ -17,6 +17,39 @@ public class MemberService {
 	@Autowired
 	MemberMapper memberMapper;
 	
+	public boolean updateMember(Model model, MemberDto member) {
+		int res = 0;
+		// 쿼리 실행중 오류 발생시 예외처리 - 비정상적으로 종료되는것을 막기위해서... 
+		try {
+			// 1. 사용자 정보 업데이트
+			res = memberMapper.updateMember(member);
+			if(res > 0) {
+				
+				// 2. 권한 업데이트
+				// 사용자의 권한을 모두 삭제
+				memberMapper.deleteRoleAll(member);
+				
+				// 3. 사용자의 권한을 추가  
+				// 권한 : 한명의 사용자가 여러개의 권한을 가질수 있으므로 배열
+				for(String role : member.getRoles()) {
+					memberMapper.addRole(member.getUser_id(), role);
+				}
+				
+				// 메세지 출력후 상세화면으로 이동
+				model.addAttribute("msg", "수정 되었습니다.");
+				model.addAttribute("url", "/member/view/" + member.getUser_id());
+			} else {
+				model.addAttribute("msg", "수정 실패 - 관리자에게 문의해주세요");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", "수정 중 예외가 발생 하였습니다.");
+		}
+		
+		return res > 0 ? true : false;
+	}
+	
+	
 	public boolean insertMember(MemberDto member){
 		int res = 0;
 		

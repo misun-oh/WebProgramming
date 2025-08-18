@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+	0. Mapper는 interface로 만들어야 함
+	1. namespage : xml의 namespace는 인터페이스의 패키지명을 포함한 인터페이스명으로 지정
+	2. id속성 : 인터페이스의 추상메서드명
+	3. insert, update, delete 태그는 반환결과가 몇건이 처리 되었는지 숫자로 반환
+-->
+<mapper namespace="dev.fileupload.mapper.UploadMapper">
+
+	<insert id="insertUpload">
+	INSERT INTO UPLOAD_FILE (FILE_ID, ATTACH_IDX, ORIG_NAME, STORED_NAME, REL_PATH, 
+                            CONTENT_TYPE, FILE_SIZE, USER_ID )
+                VALUES (SEQ_UPLOAD_FILE.NEXTVAL, #{attach_idx}, #{orig_name}, #{stored_name}, #{rel_path},
+                        #{content_type}, #{file_size}, #{user_id})
+	</insert>
+	
+</mapper> 

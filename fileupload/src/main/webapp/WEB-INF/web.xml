@@ -27,7 +27,7 @@
 	    <!-- ⬇⬇ 서블릿 표준 멀티파트 설정(용량 제한 등) ⬇⬇ -->
 	    <multipart-config>
 	      <!-- 임시 디렉터리 -->
-	      <location>d:/work/tmp</location>
+	      <location>C:\dev\upload</location>
 	      <!-- 개별 파일 최대 10MB -->
 	      <max-file-size>10485760</max-file-size>
 	      <!-- 요청 전체 최대 50MB -->

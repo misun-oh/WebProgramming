@@ -18,4 +18,52 @@
                         #{content_type}, #{file_size}, #{user_id})
 	</insert>
 	
+	<select id="selectList">
+		SELECT FILE_ID, ATTACH_IDX, ORIG_NAME, STORED_NAME, CONTENT_TYPE
+		        , USER_ID, DECODE(TO_CHAR(SYSDATE, 'yyyymmdd')
+		                            , TO_CHAR(CREATED_AT, 'yyyymmdd')
+		                            , TO_CHAR(CREATED_AT, 'hh24:mi:ss')
+		                            , TO_CHAR(CREATED_AT, 'yyyy-mm-dd')) CREATED_AT
+		        , user_id
+		FROM UPLOAD_FILE
+		<where>
+  			<!-- 검색어와 검색필드에 값이 입력된 경우
+  				null 체크 하지 않은 이유 : searchDto객체의 필드가 빈 문자열로 초기화 됨 -->
+  			<if test="searchField != '' and searchWord != ''">
+  				<!-- 검색필드에 값이 여러개인 경우
+  					ex)searchField =  title/content
+  					title/content like '%오류%'
+  					(title like ...
+  					or content like ...)
+  				-->
+  				<foreach collection="searchField.split('/')" item="field" open="(" close=")" separator="or">
+	  				${field} like '%'||#{searchWord}||'%'  					
+  				</foreach>
+  			</if>
+  		</where>
+		ORDER BY FILE_ID DESC
+	  	OFFSET (#{pageNo} - 1) * #{amount} ROWS FETCH NEXT #{amount} ROWS ONLY
+	</select>
+	
+	<select id="getTotalCnt">
+		select count(*) 
+		from upload_file
+		<!-- 검색 조건 -->
+		<where>
+  			<!-- 검색어와 검색필드에 값이 입력된 경우
+  				null 체크 하지 않은 이유 : searchDto객체의 필드가 빈 문자열로 초기화 됨 -->
+  			<if test="searchField != '' and searchWord != ''">
+  				<!-- 검색필드에 값이 여러개인 경우
+  					ex)searchField =  title/content
+  					title/content like '%오류%'
+  					(title like ...
+  					or content like ...)
+  				-->
+  				<foreach collection="searchField.split('/')" item="field" open="(" close=")" separator="or">
+	  				${field} like '%'||#{searchWord}||'%'  					
+  				</foreach>
+  			</if>
+  		</where>
+	</select>
+	
 </mapper> 

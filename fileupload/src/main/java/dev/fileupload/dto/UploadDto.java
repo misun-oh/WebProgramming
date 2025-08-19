@@ -17,7 +17,7 @@ public class UploadDto {
 	private String stored_name  ;
 	private String rel_path     ;
 	private String content_type ;
-	private int file_size    	;
+	private long file_size    	;
 	private String user_id      ;
 	private String created_at   ;
 	

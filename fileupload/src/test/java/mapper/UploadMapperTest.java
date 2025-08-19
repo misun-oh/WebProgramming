@@ -1,10 +1,16 @@
 package mapper;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import dev.fileupload.config.AppConfig;
+import dev.fileupload.dto.SearchDto;
 import dev.fileupload.dto.UploadDto;
 import dev.fileupload.mapper.UploadMapper;
 
@@ -13,6 +19,14 @@ public class UploadMapperTest {
 	
 	@Autowired
 	UploadMapper uploadMapper;
+	
+	@Test
+	public void select() {
+		
+		List<UploadDto> list = uploadMapper.selectList(new SearchDto());
+		assertNotNull(list);
+		//assertEquals(6, list.size());
+	}
 	
 	@Test
 	public void insert() {

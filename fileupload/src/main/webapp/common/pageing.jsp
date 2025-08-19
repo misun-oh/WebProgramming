@@ -3,7 +3,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
 <!-- 공통 - PageDto객체가 있으면 페이지 블럭을 출력 -->
 
 	<!-- 태그라이브러리를 이용하여 출력시 el문법을 이용하여 null처리 없이 편리하게 이용할 수 있다! -->

@@ -3,13 +3,26 @@ package dev.fileupload.service;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
+import dev.fileupload.dto.PageDto;
+import dev.fileupload.dto.SearchDto;
+import dev.fileupload.dto.UploadDto;
+import dev.fileupload.mapper.UploadMapper;
+
+@Service
 public class UploadService {
 
+	@Autowired
+	UploadMapper uploadMapper;
+	
 	// 프로퍼티 파일의 정보를 읽어오기
 	@Value("${file.upload.upload_dir}")
 	private String uploadRoot; 
@@ -27,6 +40,17 @@ public class UploadService {
 				String sname = getSname(file.getOriginalFilename());
 				Path path = Paths.get(uploadRoot, sname);			
 				
+				UploadDto upload = new UploadDto();
+				// attach_idx : 첨부파일이 여러개인 경우 
+				upload.setAttach_idx(0);
+				upload.setContent_type(file.getContentType());
+				upload.setFile_size(file.getSize());
+				upload.setStored_name(sname);
+				upload.setOrig_name(file.getOriginalFilename());
+				upload.setRel_path("2025/08/18/");
+				upload.setUser_id("100");
+				
+				res = uploadMapper.insertUpload(upload);
 				// 지정된 위치에 파일을 저장
 				file.transferTo(path);
 				
@@ -58,4 +82,40 @@ public class UploadService {
 		String sname = name + "_" + uuid + "." + ext;
 		return sname;
 	}
+
+
+	public void selectList(Model model, SearchDto searchDto) {
+		// 리스트 조회
+		List<UploadDto> list = uploadMapper.selectList(searchDto);
+		
+		// 페이지Dto 생성
+		int totalCnt = uploadMapper.getTotalCnt(searchDto);
+		PageDto pageDto = new PageDto(searchDto, totalCnt);
+		
+		// model에 저장
+		model.addAttribute("list", list);
+		model.addAttribute("pageDto", pageDto);
+	}
+
+
+	/**
+	 * 파일 1건의 정보를 상세 조회
+	 * @return
+	 */
+	public UploadDto getFile() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+

@@ -7,7 +7,7 @@
 <p>
 	<form class="row g-3" name="searchForm">
 		
-	pageNo	<input type="text" name="pageNo" value="${pageDto.pageNo }"><br>
+	<input type="hidden" name="pageNo" value="${pageDto.pageNo }"><br>
 				
       <div class="col-md-3">
         <select id="inputState" class="form-select" name="searchField">

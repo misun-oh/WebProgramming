@@ -7,6 +7,7 @@ import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import dev.fileupload.HomeController;
+
 import dev.fileupload.dto.SearchDto;
 import dev.fileupload.dto.UploadDto;
 import dev.fileupload.service.UploadService;
@@ -28,14 +29,41 @@ import dev.fileupload.service.UploadService;
 @RequestMapping("/upload")
 public class UploadController {
 
-    private final HomeController homeController;
-
 	@Autowired
 	UploadService uploadService;
-
-    UploadController(HomeController homeController) {
-        this.homeController = homeController;
-    }
+	
+	@GetMapping("/upload_fetch")
+	private void upload_fetch(Model model, SearchDto searchDto) {
+		
+	}
+	
+	@GetMapping("/upload_list")
+	@ResponseBody
+	private Map<String, Object> upload_list(SearchDto searchDto) {
+		// 리스트 - 데이터, pageDto
+		Map<String, Object> map = uploadService.selectList_fetch(searchDto);
+		
+		return map;
+	}
+	
+	// fetch - responseBody
+	@PostMapping("/upload_fetch")
+	@ResponseBody
+	private Map<String, String> upload_fetch_action(MultipartFile file) {
+		Map<String, String> map = null;
+		
+		if(!file.isEmpty()) {
+			System.out.println("업로드 파일 : " + file.getOriginalFilename());
+			
+			map = Map.of("res", "true");
+		} else {
+			System.out.println("파일 없음");
+			map = Map.of("res", "false", "msg", "파일이 없습니다.");
+			
+		}
+		
+		return map;
+	}
 	
 	@GetMapping("/upload")
 	private void upload(Model model, SearchDto searchDto) {
@@ -50,7 +78,8 @@ public class UploadController {
 		System.out.println("file : " + file);
 		System.out.println("user_id : " + user_id);
 		
-		int res = uploadService.insertUpload(file);
+		int file_id = uploadService.getSeq();
+		int res = uploadService.insertUpload(file, file_id);
 		// 메세지 처리 -> /upload/upload로 redirect (재호출 -> 다시 요청)
 		model.addAttribute("msg", res + "건 저장 되었습니다.");
 		
@@ -62,6 +91,7 @@ public class UploadController {
 	}
 	
 	// file_id, attach_idx로 다운로드
+	//@GetMapping("/download/{file_id}/{attach_idx}")
 	@GetMapping("/download")
 	private ResponseEntity<byte[]> downloadFile(UploadDto dto) {
 		System.out.println(dto.getFile_id());

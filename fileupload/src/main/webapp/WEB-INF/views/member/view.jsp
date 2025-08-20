@@ -5,6 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	#profileImg {
+		width : 130px;
+		height : 130px;
+		border-radius: 50%;
+	}
+	.center{
+		text-align: center
+	}
+</style>
 </head>
 <body>
 <!-- header 영역 -->
@@ -12,6 +22,11 @@
 <!-- main 영역 -->
 <div id="wrap">
 	<h2>상세보기</h2>
+	<div class="center">
+		<img alt="프로필" src="/upload/download?file_id=${member.profile_image_url }" id="profileImg" 
+					onerror="this.src='/res/img/no_img.png'">
+					
+	</div>
 	
 	<div class="form-floating mb-3">
 		<input type="text" readonly class="form-control-plaintext" id="id" value="${member.user_id }">

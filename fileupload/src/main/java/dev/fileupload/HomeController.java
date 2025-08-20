@@ -1,19 +1,20 @@
 package dev.fileupload;
 
-import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.Map;
 
-import org.springframework.http.HttpHeaders;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import dev.fileupload.service.UploadService;
 
 // 하나의 파일에 여러개의 요청주소를 매핑
 // 파라메터 수집을 자동으로 처리
@@ -23,6 +24,8 @@ public class HomeController {
 
 	// WEB-INF하위의 경로는 직접(.jsp를 요청)호출 할수 없어요!!!
 	// 컨트롤러를 경유해야합니다. 
+	@Autowired
+	UploadService uploadService;
 	
 	// /요청 url이 요청되면 실행 하 메서드
     @RequestMapping(path = "/", method = RequestMethod.GET)
@@ -40,6 +43,24 @@ public class HomeController {
     	System.out.println("/test");
     }
 
+    @PostMapping("/h/upload_fetch")
+    @ResponseBody
+	private Map<String, Integer> upload_action(Model model, MultipartFile file, String user_id) {
+		System.out.println("file : " + file);
+		System.out.println("user_id : " + user_id);
+		
+		int file_id = uploadService.getSeq();
+		int res = uploadService.insertUpload(file, file_id);
+		// 메세지 처리 -> /upload/upload로 redirect (재호출 -> 다시 요청)
+		model.addAttribute("msg", res + "건 저장 되었습니다.");
+		
+		// 리스트를 조회 하는건 /upload/upload 
+		model.addAttribute("url", "/upload/upload");
+		
+		return Map.of("res", res);
+		
+	}
+    
     
 	@GetMapping("/h/download/{filename}")
 	@ResponseBody

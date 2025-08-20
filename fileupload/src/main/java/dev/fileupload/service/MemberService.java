@@ -58,7 +58,15 @@ public class MemberService {
 		int res = 0;
 		
 		try {
-			uploadService.insertUpload(file);
+			// 첨부된 파일이 있으면 파일을 추가하고 memberDto에 file_id를 입력
+			if(!file.isEmpty()) {
+				// 파일업로드
+				int file_id = uploadService.getSeq();
+				int file_upload_res = uploadService.insertUpload(file, file_id);
+	
+				// 파일의 정보를 Member 테이블에 저장
+				member.setProfile_image_url(file_id+"");
+			}
 			// 사용자 등록 입력
 			res = memberMapper.insertMember(member);
 			

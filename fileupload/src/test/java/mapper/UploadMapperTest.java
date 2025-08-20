@@ -21,6 +21,22 @@ public class UploadMapperTest {
 	UploadMapper uploadMapper;
 	
 	@Test
+	public void getSeq() {
+		int seq = uploadMapper.getSeq();
+		System.out.println(seq);
+	}
+	
+	@Test
+	public void getFile() {
+		UploadDto dto = new UploadDto();
+		dto.setFile_id(5);
+		dto.setAttach_idx(0);
+		
+		dto = uploadMapper.getFile(dto);
+		System.out.println(dto);
+	}
+	
+	@Test
 	public void select() {
 		
 		List<UploadDto> list = uploadMapper.selectList(new SearchDto());

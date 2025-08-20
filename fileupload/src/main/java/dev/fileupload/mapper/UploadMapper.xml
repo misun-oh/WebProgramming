@@ -11,10 +11,21 @@
 -->
 <mapper namespace="dev.fileupload.mapper.UploadMapper">
 
+	<select id="getFile">
+		SELECT  * 
+		FROM    UPLOAD_FILE 
+		WHERE   FILE_ID = #{file_id}
+		AND     ATTACH_IDX = #{attach_idx}
+	</select>
+	
+	<select id="getSeq">
+		select SEQ_UPLOAD_FILE.NEXTVAL from dual
+	</select>
+	
 	<insert id="insertUpload">
 	INSERT INTO UPLOAD_FILE (FILE_ID, ATTACH_IDX, ORIG_NAME, STORED_NAME, REL_PATH, 
                             CONTENT_TYPE, FILE_SIZE, USER_ID )
-                VALUES (SEQ_UPLOAD_FILE.NEXTVAL, #{attach_idx}, #{orig_name}, #{stored_name}, #{rel_path},
+                VALUES (#{file_id}, #{attach_idx}, #{orig_name}, #{stored_name}, #{rel_path},
                         #{content_type}, #{file_size}, #{user_id})
 	</insert>
 	

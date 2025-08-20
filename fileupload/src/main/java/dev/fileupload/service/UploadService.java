@@ -102,9 +102,9 @@ public class UploadService {
 	 * 파일 1건의 정보를 상세 조회
 	 * @return
 	 */
-	public UploadDto getFile() {
-		// TODO Auto-generated method stub
-		return null;
+	public UploadDto getFile(UploadDto dto) {
+		
+		return uploadMapper.getFile(dto);
 	}
 }
 

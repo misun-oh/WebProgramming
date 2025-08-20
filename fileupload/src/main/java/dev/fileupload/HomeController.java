@@ -1,6 +1,7 @@
 package dev.fileupload;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -40,31 +41,36 @@ public class HomeController {
     }
 
     
-	@GetMapping("/hhh")
+	@GetMapping("/h/download/{filename}")
 	@ResponseBody
-	private ResponseEntity<byte[]> header() {
-		
-		HttpHeaders headers = new HttpHeaders();
-		//headers.set(Content-Type, "text/html; charset=UTF-8");
-		//headers.set(HttpHeaders.CONTENT_TYPE, "text/html; charset=UTF-8");
-		headers.set(HttpHeaders.CONTENT_TYPE, "application/octet-stream");
-		headers.set(HttpHeaders.CONTENT_DISPOSITION, "Content-Disposition: attachment; filename=\"file.txt\"");
-		// header를 조작(넘겨줄 데이터, 헤더, 상태코드)
-		
-		 // 1. 파일 위치 (절대경로나 classpath)
-	    Path filePath = Paths.get("C:\\dev\\upload\\KakaoTalk_20250723_060317451.mp4");  // 예: Paths.get("files/example.pdf");
-	    byte[] fileContent = null;
-	    // 2. 파일 내용 읽기
-	    try {
-			fileContent = Files.readAllBytes(filePath);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		//return new ResponseEntity<byte[]>("한글".getBytes(), headers, HttpStatus.OK);
-	    return new ResponseEntity<byte[]>(fileContent, headers, HttpStatus.OK);
-		//return "안녕";
+	private ResponseEntity<byte[]> header(String filename) {
+        return new ResponseEntity<>("파일이 존재하지 않습니다".getBytes(), HttpStatus.NOT_FOUND);
+
+//		byte[] content = null;
+//		HttpHeaders headers = new HttpHeaders();
+//		
+//		try {
+//			//headers.set(Content-Type, "text/html; charset=UTF-8");
+//			//headers.set(HttpHeaders.CONTENT_TYPE, "text/html; charset=UTF-8");
+//			headers.set(HttpHeaders.CONTENT_TYPE, "application/octet-stream");
+//																	// 다운로드 이름 filename=영문
+//			String oname = filename;
+//			
+//			headers.set(HttpHeaders.CONTENT_DISPOSITION
+//							, "attachment; filename=\"file.mp4\"; filename*=UTF-8''" 
+//																	+ URLEncoder.encode(oname, "utf-8"));
+//			
+//			Path path = Paths.get("C:/dev/upload/salad.jpg");
+//			content = Files.readAllBytes(path);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		// header를 조작(넘겨줄 데이터, 헤더, 상태코드)
+//		//return new ResponseEntity<byte[]>("한글".getBytes(), headers, HttpStatus.OK);
+//		return new ResponseEntity<byte[]>(content, headers, HttpStatus.OK);
+//		//return "안녕";
+
 
 	}
 }

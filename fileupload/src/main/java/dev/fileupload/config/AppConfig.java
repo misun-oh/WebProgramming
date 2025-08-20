@@ -10,9 +10,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+
+import dev.fileupload.interceptor.LoginCheckInterceptor;
 
 
 @Configuration
@@ -20,8 +24,16 @@ import com.zaxxer.hikari.HikariDataSource;
 @MapperScan(basePackages = "dev.fileupload.mapper")
 @ComponentScan(basePackages = "dev.fileupload.service")
 @PropertySource("classpath:application.properties")
-public class AppConfig {	
-    
+public class AppConfig implements WebMvcConfigurer{
+	
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new LoginCheckInterceptor())
+				.addPathPatterns("/**")
+				.excludePathPatterns("/member/login");
+		
+	}
+	
 	// HikariConfig config = new HikariConfig("hikari.properties");
 	@Bean("hikariConfig")
 	public HikariConfig hikariConfig() {

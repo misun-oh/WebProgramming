@@ -93,6 +93,10 @@
 				<td>  
 					${file.orig_name }<br>
 					${file.stored_name }
+					<!--
+					<a href="/upload/download?orig_name=${file.orig_name }&stored_name=${file.stored_name }">다운로드</a>
+					-->
+					<a href="/upload/download?file_id=${file.file_id }&attach_idx=${file.attach_idx }">다운로드</a>
 				</td>   
 				<td>
 					${file.user_id }
@@ -105,6 +109,10 @@
 	</table>
 	
 </c:if>
+
+
+
+
 
 <!-- 
 1. pageing.jsp include 

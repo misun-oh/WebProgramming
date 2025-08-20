@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import dev.fileupload.dto.MemberDto;
 import dev.fileupload.dto.PageDto;
@@ -16,6 +17,9 @@ public class MemberService {
 
 	@Autowired
 	MemberMapper memberMapper;
+	
+	@Autowired
+	UploadService uploadService;
 	
 	public boolean updateMember(Model model, MemberDto member) {
 		int res = 0;
@@ -49,11 +53,12 @@ public class MemberService {
 		return res > 0 ? true : false;
 	}
 	
-	
-	public boolean insertMember(MemberDto member){
+	/* 파일 업로드 추가 */
+	public boolean insertMember(MemberDto member, MultipartFile file){
 		int res = 0;
 		
 		try {
+			uploadService.insertUpload(file);
 			// 사용자 등록 입력
 			res = memberMapper.insertMember(member);
 			

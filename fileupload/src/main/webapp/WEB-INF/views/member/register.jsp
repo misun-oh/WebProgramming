@@ -90,7 +90,9 @@
 <!-- main 영역 -->
 <div id="wrap">
 <h2>사용자 등록</h2>
-<form action="/member/register_action" method="post" name="registerForm" id="rrrr">
+
+<!-- 파일을 첨부하기 위해  enctype="multipart/form-data"을 지정 -->
+<form action="/member/register_action" method="post" name="registerForm" id="rrrr" enctype="multipart/form-data">
 		
 	<div class="input-group mb-3 mt-4">
 		<input type="text" class="form-control" placeholder="아이디" id="user_id" name="user_id"
@@ -123,7 +125,7 @@
 		<input type="text" class="form-control" placeholder="전화번호" aria-label="Recipient's username" aria-describedby="button-addon2" name="phone_number">
 	</div>
 	<div class="input-group mb-3">
-		<input type="file" class="form-control" id="inputGroupFile01" name="profile_image_url">
+		<input type="file" class="form-control" id="inputGroupFile01" name="file">
 	</div>
 	
 	<div class="input-group mb-3 justify-content-md-center">

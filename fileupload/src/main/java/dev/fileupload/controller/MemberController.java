@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dev.fileupload.dto.MemberDto;
@@ -90,15 +91,18 @@ public class MemberController {
 	}
 
 	// 등록 처리
-	@PostMapping("/member/register_action")
-	private String register_action(Model model, MemberDto member) {
+	// 첨부파일 등록 / 다운로드 
+	@PostMapping("member/register_action")
+	private String register_action(Model model, MemberDto member,  MultipartFile file) {
+		System.out.println("첨부파일이 잘 수집 되었는지 확인");
+		System.out.println("file : " + file.getOriginalFilename());
 		// 파라메터 수집 확인
 		// null : 필드와 일치하는 name속성이 없는경우
 		// '' : 입력을 안한것
 		System.out.println("member : " + member);
 		
 		// 데이터베이스에 등록
-		boolean res = memberService.insertMember(member);
+		boolean res = memberService.insertMember(member, file);
 		if(res) {
 			// void : /member/register_action.jsp
 			// String : 보여주고 싶은 화면의 경로

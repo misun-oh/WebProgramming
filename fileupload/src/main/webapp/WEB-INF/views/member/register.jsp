@@ -6,14 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-	const ROLES = {
-		user_id	: /^[a-z0-9_]{4,12}$/,
-		password : /^[a-z]$/,
-		email : /^[a-z]$/
-		
-	}
-
-
+	
+	
 	window.addEventListener('load', ()=>{
 		
 		let saveBtn = document.querySelector('#saveBtn');
@@ -24,19 +18,19 @@
 			e.preventDefault();
 			
 			// 유효성검사
+			// 1. 패턴등록
+			// 2. 필드에 속성 data-field 추가
+			// 3. <div class="invalid-feedback"></div> 를 요소 아래 추가
 			console.log('저장버튼 클릭!!!!!');
 			console.log('user_id', user_id.value.trim());
-			let res = /^[a-z0-9_]{4,12}$/.test(user_id.value);
 			
-			if(!res){
-				user_id.classList.add('is-invalid'); // 빨강
-		  		user_id.classList.remove('is-valid');// 초록
-		  		return;
+			// 유효성 검사(form의 name속성)
+			let res = formCheck(registerForm);
+			
+			// 유효성 검사가 성공으로 끝난 경우에만 폼을 전송
+			if(res){
+				registerForm.submit();	
 			}
-			
-			
-			// 폼 전송
-			registerForm.submit();			
 
 		});
 		
@@ -96,24 +90,19 @@
 		
 	<div class="input-group mb-3 mt-4">
 		<input type="text" class="form-control" placeholder="아이디" id="user_id" name="user_id"
-		 data-field="user_id"	
-		 data-msg="아이디는 영어소문자, 숫자, _로 4자이상 12자 이하로 입력 해주세요"
-		 >
+		 data-field="user_id">
 		<button class="btn btn-outline-secondary" type="button" id="checkIdBtn">중복체크</button>
-		
-	    <div class="valid-feedback">
-	      	사용가능한 아이디 입니다.
-	    </div>
-	    <div class="invalid-feedback">
-      		아이디는 영어소문자, 숫자, _로 4자이상 12자 이하로 입력 해주세요
-    	</div>
+	    <div class="valid-feedback"></div>
+	    <div class="invalid-feedback"></div>
 	</div>
 	
 	<div class="input-group mb-3">
 		<input type="text" class="form-control is-invalied" placeholder="비밀번호" name="password" data-field="password">
+		<div class="invalid-feedback"></div>
 	</div>
 	<div class="input-group mb-3">
-		<input type="text" class="form-control" placeholder="비밀번호 확인" aria-label="Recipient's username" aria-describedby="button-addon2">
+		<input type="text" class="form-control" placeholder="비밀번호 확인" aria-label="Recipient's username" aria-describedby="button-addon2" data-field="pwcheck">
+		<div class="invalid-feedback"></div>
 	</div>
 	<div class="input-group mb-3">
 		<input type="text" class="form-control" placeholder="이름" aria-label="Recipient's username" aria-describedby="button-addon2" name="username">

@@ -23,7 +23,7 @@
 <div id="wrap">
 	<h2>상세보기</h2>
 	<div class="center">
-		<img alt="프로필" src="/upload/download?file_id=${member.profile_image_url }" id="profileImg" 
+		<img alt="프로필" src="/upload/download/${member.profile_image_url }/0" id="profileImg" 
 					onerror="this.src='/res/img/no_img.png'">
 					
 	</div>

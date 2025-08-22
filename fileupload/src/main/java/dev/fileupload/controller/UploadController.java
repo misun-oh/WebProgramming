@@ -7,6 +7,7 @@ import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,16 @@ public class UploadController {
 		return map;
 	}
 	
+	// 멀티파일 업로드
+	@PostMapping("/upload_fetch_multi")
+	@ResponseBody
+	private Map<String, String> upload_fetch_multi(List<MultipartFile> files) {
+		System.out.println("멀티 파일 업로드 : " + files);
+		int res = uploadService.insertMultiUpload(files);
+		return Map.of("res", res+"건 전송");
+	}
+	
+	
 	@GetMapping("/upload")
 	private void upload(Model model, SearchDto searchDto) {
 		// upload.jsp
@@ -91,8 +102,8 @@ public class UploadController {
 	}
 	
 	// file_id, attach_idx로 다운로드
-	//@GetMapping("/download/{file_id}/{attach_idx}")
-	@GetMapping("/download")
+	//@GetMapping("/download/{file_id}/{attach_idx}")	
+	@GetMapping("/download/{file_id}/{attach_idx}")
 	private ResponseEntity<byte[]> downloadFile(UploadDto dto) {
 		System.out.println(dto.getFile_id());
 		System.out.println(dto.getAttach_idx());

@@ -4,12 +4,14 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.JdbcType;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -22,15 +24,18 @@ import dev.fileupload.interceptor.LoginCheckInterceptor;
 @Configuration
 // mapper인터페이스의 패키지 위치
 @MapperScan(basePackages = "dev.fileupload.mapper")
-@ComponentScan(basePackages = "dev.fileupload.service")
+@ComponentScan(basePackages = "dev.fileupload")
 @PropertySource("classpath:application.properties")
 public class AppConfig implements WebMvcConfigurer{
 	
+	@Autowired
+    private LoginCheckInterceptor loginCheckInterceptor;
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new LoginCheckInterceptor())
-				.addPathPatterns("/**")
-				.excludePathPatterns("/member/login");
+		
+		registry.addInterceptor(loginCheckInterceptor)
+        .addPathPatterns("/**");;
 		
 	}
 	
@@ -73,5 +78,6 @@ public class AppConfig implements WebMvcConfigurer{
     public static PropertySourcesPlaceholderConfigurer propertyConfig() {
         return new PropertySourcesPlaceholderConfigurer();
     }
+    
 	
 }

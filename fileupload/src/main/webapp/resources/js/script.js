@@ -53,6 +53,38 @@ window.addEventListener('load', ()=>{
 
 });
 
+/*
+	pageDto를 가지고 페이지 블럭을 그려줌
+*/
+function renderPagination(pageDto) {
+	console.log(pageDto);
+
+  const pagination = document.getElementById('pagination');
+  pagination.innerHTML = ''; // 기존 내용 초기화
+
+  // Previous 버튼
+  // 요소를 생성
+  const prevItem = document.createElement('li');
+  // 요소의 속성을 추가 
+  prevItem.className = 'page-item' + (pageDto.isPrev ? '' : ' disabled');
+  prevItem.innerHTML = `<a class="page-link" href="#" onclick="getList(${pageDto.currentPage - 1})">Previous</a>`;
+  pagination.appendChild(prevItem);
+
+  // 페이지 번호 버튼
+  for (let i = pageDto.startNo; i <= pageDto.endNo; i++) {
+    const pageItem = document.createElement('li');
+    pageItem.className = 'page-item' + (i === pageDto.pageNo ? ' active' : '');
+    pageItem.innerHTML = `<a class="page-link" href="#" onclick="getList(${i})">${i}</a>`;
+    pagination.appendChild(pageItem);
+  }
+
+  // Next 버튼
+  const nextItem = document.createElement('li');
+  nextItem.className = 'page-item' + (pageDto.isNext ? '' : ' disabled');
+  nextItem.innerHTML = `<a class="page-link" href="#" onclick="getList(${pageDto.currentPage + 1})">Next</a>`;
+  pagination.appendChild(nextItem);
+}
+
 // select 박스 옵션 목록을 초기화
 // 옵션목록을 매개변수로 전달 받아서 select박스에 옵션을 추가
 function settingSelect(searchField, optionList, selectedItem){
@@ -158,3 +190,112 @@ function sample4_execDaumPostcode() {
         }
     }).open();
 }
+
+
+// 검증 정규식
+const RULES = {
+		user_id		: {pattern : /^[a-z0-9_]{4,12}$/,
+							msg : '아이디는 영어소문자, 숫자, _로 4자이상 12자 이하로 입력 해주세요'}
+		, password 	: {pattern : /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{10,15}$/,
+							msg : '비밀번호는 영어대문자, 특수문자를 포함하여 10자이상 15자 이하로 입력 해주세요'}
+		, email 	: {pattern : /^[a-z]$/,
+							msg : 'msg'}
+		, pwcheck 	: {msg : '비밀번호가 일치하지 않습니다.'}
+		
+}
+
+// 폼 유효성검사
+// 유효성검사가 성공 => 요소의 class속성에 is-invalid라는 속성이 있는지 확인 => 빨강 박스의 갯수가 0개이면 true 아니면 false
+function formCheck(form){
+	
+	// input요소 중에서 data-field속성을 가지고 있는 요소에 대해서 유효성 검사를 진행
+	let inputList = form.querySelectorAll('input');
+	
+	// 리스트로 부터 요소를 하나씩 꺼내서 함수를 실행
+	inputList.forEach((input)=>{
+		// falsy한 값이 아니면 = data-field속성이 등록 되어 있으면 유효성 검사를 진행
+		if(input.dataset.field){
+			// 검증결과
+			let testRes = true;							// 유효성 검증 결과
+			// 정규식 패턴이 등록된 경우 정규식 패턴을 비교
+			if(RULES[input.dataset.field].pattern){
+				console.log('field : ', input.dataset.field);
+				
+				// RULES객체로 부터 검사패턴과 메세지 정보를 수집
+				let regExp = RULES[input.dataset.field].pattern;
+				
+				console.log('regExp : ', regExp)
+				// 정규식 테스트가 통과시 true
+				testRes = regExp.test(input.value);
+				
+				console.log('testRes : ', testRes, regExp, input.value);
+			
+			} else {
+				// 패턴이 아니지만 체크로직을 추가 하고 싶은 경우 
+				// 비밀번호 체크
+				if(input.dataset.field == 'pwcheck' && document.querySelector('[name=password]')){
+					// 비밀번호와 비밀번호 확인이 같은지 체크
+					if(!input.value || input.value != document.querySelector('[name=password]').value){
+						testRes = false;
+					} 
+				}
+			}
+		
+			// 유효성검사 실패시 빨강
+			if(!testRes){
+				let msg = RULES[input.dataset.field].msg;	// 출력할 메세지
+				// 메세지 처리
+				if(input.parentElement.querySelector('.invalid-feedback')){
+					input.parentElement.querySelector('.invalid-feedback').innerText = msg;							
+				}
+	
+				input.classList.add('is-invalid'); // 빨강
+				input.classList.remove('is-valid');// 초록
+			} else {
+				input.classList.remove('is-invalid'); // 빨강
+				input.classList.add('is-valid');// 초록
+			}
+		}
+		
+	});
+	
+	// 유효성 검증 결과를 반환
+	// 폼의 클래스 속성에 is-invalid가 있는지 확인!!!
+	return registerForm.querySelectorAll('.is-invalid').length == 0;
+}
+
+// get 방식 요청
+function fetch_get(url, callback){
+	fetch(url) // 요청URL
+	.then(response => response.json())	// 요청결과를 object로 변환
+	.then(result => {
+	  	// 서버의 통신결과
+	  	console.log(result);
+		callback(result)
+	})
+	.catch(err=>{
+	  	// 네트워크 장애, 매핑된 url이 없는경우
+		console.log('err', err);  
+	});
+}
+
+// post 방식 요청
+function fetch_post(url, callback, form){
+	let formdata = new FormData(form);
+
+	fetch(url, {
+		method : 'post',
+		body : formdata
+	}) // 요청URL
+	.then(response => response.json())	// 요청결과를 object로 변환
+	.then(result => {
+		// 서버의 통신결과
+		callback(result);	  	
+	})
+	.catch(err=>{
+	  	// 네트워크 장애, 매핑된 url이 없는경우
+		console.log('err', err);  
+	});
+}
+
+

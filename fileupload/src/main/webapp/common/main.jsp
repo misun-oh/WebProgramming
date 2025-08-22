@@ -31,6 +31,14 @@ fetch(url) // 요청URL
 <!-- main 영역 -->
 <div id="wrap">
 
+
+	<!-- 페이지네이션이 렌더링될 위치 -->
+	<nav aria-label="Page navigation">
+	  <ul class="pagination justify-content-center" id="pagination">
+	    <!-- fetch로 동적으로 채움 -->
+	  </ul>
+	</nav>
+
 </div>
 <!-- footer 영역 -->
 <%@include file="/common/footer.jsp" %>

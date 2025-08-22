@@ -55,7 +55,9 @@
 <h3>첨부파일 목록</h3>
 <%@include file="/common/search.jsp" %>
 <hr>
-<!-- 태그라이브러리를 이용한 데이터 출력 -->
+<!-- 
+내장객체의 영역에 저장된 데이터를 화면에 출력
+태그라이브러리를 이용한 데이터 출력 -->
 <c:if test="${empty list}">
 	<tr><td colspan="4" class="text-center">게시글이 존재하지 않습니다.</td></tr>
 </c:if>
@@ -96,7 +98,10 @@
 					<!--
 					<a href="/upload/download?orig_name=${file.orig_name }&stored_name=${file.stored_name }">다운로드</a>
 					-->
+					<!-- 쿼리스트링을 이용하여 파라메터를 전달 -->
 					<a href="/upload/download?file_id=${file.file_id }&attach_idx=${file.attach_idx }">다운로드</a>
+					<!-- 경로를 이용하여 파라메터를 전달 -->
+					<a href="/upload/download/${file.file_id }/${file.attach_idx }">다운로드</a>
 				</td>   
 				<td>
 					${file.user_id }
@@ -109,6 +114,9 @@
 	</table>
 	
 </c:if>
+
+
+<div id="pageingDiv"></div>
 
 
 
@@ -131,6 +139,56 @@
 
 <%@include file="/common/footer.jsp" %>
 
+<script type="text/javascript">
+function getList(){
+	let url = '/upload/upload_list?pageNo=2';
+	
+	fetch(url) // 요청URL
+	.then(response => response.json())	// 요청결과를 object로 변환
+	.then(result => {
+		// 서버의 통신결과 = map
+		// list, pageDto
+		// 리스트를 화면에 출력
+		printList(result);
+	  	
+	})
+	.catch(err=>{
+		  	// 네트워크 장애, 매핑된 url이 없는경우
+			console.log('err', err);  
+	});
+}
 
+function printList(result){
+	// 리스트 출력
+	console.log("list", result.list);
+	let content="";
+	// 페이지 블럭
+	
+  	console.log("pageDto", result.pageDto);
+  	let pageDto = result.pageDto;
+  	console.log(pageDto.startNo);
+  	console.log(pageDto.endNo);
+
+  	if(pageDto.isPrev){
+  		content += "<";
+  		console.log("<");
+  	}
+  	
+  	for(let i=pageDto.startNo;i<=pageDto.endNo;i++){
+  		content += i + " ";
+  		console.log("페이지"+i);
+  	}
+  	
+  	if(pageDto.isNext){
+  		content += ">";
+  		console.log(">");
+  	}
+  	
+  	
+  	pageingDiv.innerHTML=content;
+ }
+ 
+getList()
+</script>
 </body>
 </html>
